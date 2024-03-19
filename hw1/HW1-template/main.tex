@@ -1,0 +1,82 @@
+% Homework Template
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage[thehwcnt = 1]{iidef}
+
+\DeclareMathOperator{\arctanh}{arctanh}
+
+\thecourseinstitute{清华大学电子工程系}
+\thecoursename{\textbf{媒体与认知} \space 课堂2}
+\theterm{2023-2024学年春季学期}
+\hwname{作业}
+\begin{document}
+\courseheader
+% 请在YOUR NAME处填写自己的姓名
+\name{毕嘉仪}
+\vspace{3mm}
+\centerline{\textbf{\Large{理论部分}}}
+
+\section{单选题（15分）}
+% 请在？处填写答案
+\subsection{\underline{B}}
+
+\subsection{\underline{A}}
+
+\subsection{\underline{B}}
+
+\subsection{\underline{A}}
+
+\subsection{\underline{B}}
+
+\section{计算题（15 分）}
+\subsection{设隐含层为$\mathbf{z}=\mathbf{W}^T\mathbf{x}+\mathbf{b}$，其中$\mathbf{x}\in R^{(m \times 1)}$，$\mathbf{z}\in R^{(n\times 1)}$，$\mathbf{W}\in R^{(m\times n)}$，$\mathbf{b} \in R^{(n\times 1)}$均为已知，其激活函数如下：
+$$\mathbf{y}=\delta(\mathbf{z})=tanh(\mathbf{z})$$
+tanh表示双曲正切函数。若训练过程中的目标函数为L，且已知L对$\mathbf{y}$的导数 $\frac{\partial L}{\partial \mathbf{y}}=[\frac{\partial L}{\partial y_1},\frac{\partial L}{\partial y_2},...,\frac{\partial L}{\partial y_n}]^T$和$\mathbf{y}=[y_1,y_2,...,y_n]^T$的值。}
+\subsubsection{请使用$\mathbf{y}$表示出$\frac{\partial \mathbf{y}^T}{\partial \mathbf{z}}$, 这里的$\mathbf{y}^T$ 为行向量。}
+\begin{proof}[解]
+    
+    \[\frac{\partial \boldsymbol{y}^\mathrm{T}}{\partial \boldsymbol{z}}_{n \times n} = 
+    \begin{bmatrix}
+        \frac{\partial y_1}{\partial z_1} & \dots & \frac{\partial y_n}{\partial z_1} \\
+        \vdots & \ddots & \vdots \\
+        \frac{\partial y_1}{\partial z_n} & \dots & \frac{\partial y_n}{\partial z_n} \\
+    \end{bmatrix}\]
+    当$i \neq j$, 易知 $\frac{\partial y_i}{\partial z_i} = 0$ \\
+    当$i = j$, 
+    \[\tanh^\prime \boldsymbol{z} = 1 - \tanh ^2 \boldsymbol{z}\]
+    \[\boldsymbol z = \arctanh \boldsymbol y\]
+    \[\therefore \tanh^\prime \boldsymbol z = 1 - \]
+\end{proof}
+
+\subsubsection{请使用$\mathbf{y}$和$\frac{\partial L}{\partial \mathbf{y}}$表示$\frac{\partial L}{\partial \mathbf{x}}$，$\frac{\partial L}{\partial \mathbf{W}}$，$\frac{\partial L}{\partial \mathbf{b}}$。}
+提示:$\frac{\partial L}{\partial \mathbf{x}}$，$\frac{\partial L}{\partial \mathbf{W}}$，$\frac{\partial L}{\partial \mathbf{b}}$与x,W,b具有相同维度。
+\vspace{6mm}
+\centerline{\textbf{\Large{编程部分}}}
+
+
+\vspace{3mm}
+% 请根据是否选择自选课题的情况选择“编程作业报告”或“自选课题开题报告”中的一项完成
+\section{编程作业报告}
+% 请在此处完成编程作业报告
+
+\section{自选课题开题报告}
+% 请在此处介绍自选课题
+
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:
