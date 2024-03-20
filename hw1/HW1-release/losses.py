@@ -2,8 +2,8 @@
 #             Media and Cognition
 #             Homework 1 Neural network basics
 #             losses.py - loss functions
-#             Student ID:
-#             Name:
+#             Student ID: 2022010608
+#             Name: Bi Jiayi
 #             Tsinghua University
 #             (C) Copyright 2024
 #========================================================
@@ -82,31 +82,37 @@ class CrossEntropyLoss(torch.autograd.Function):
         #e.g., if label = [0, 2] and n_classes=4, then the one-hot version is [[1,0,0,0], [0,0,1,0]]
 
         # calculate z_max
-        ???
+        z_max = torch.max(logits, dim=1, keepdim=True)[0] # [batch_size, n_class]
 
         # calculate exps = exp(z - z_max)
-        ???
+        exps = torch.exp(logits - z_max) # [batch_size, n_class]
 
         # calculate q = softmax(y - y_max)
-        ???
+        denominator = torch.sum(exps, dim=1) # [batch_size]
+        q = exps / denominator.reshape(-1, 1) # reshape denominator to [batich_size, 1], and will be automatically broadcast to[batch_size, n_class] during the operation. so q is [batch_size, n_class]
+
 
         # step 2: convert label into one-hot version
         # e.g., if label = [0, 2] and n_classes=4, then the one-hot version is [[1,0,0,0], [0,0,1,0]] 
         # the converted label has shape [batch_size, n_classes]
         # tips: you can use torch.nn.functional.one_hot() to convert label into one-hot vector with dimension n_classes
-        ???
+        one_hot_label = torch.nn.functional.one_hot(label, logits.size()[1])
 
         # step 3: calculate cross entropy loss = - log q_i, and averaged by batch
         # save result of softmax and one-hot label in ctx for gradient computation
-        ???
+        neglogs = -torch.log(torch.sum(one_hot_label * q, dim=1)) # [batch_size]
+        loss_cross_entropy = torch.sum(neglogs) / label.size()[0] # scaler, average by batches
 
-        pass 
+        ctx.save_for_backward(q, one_hot_label)
+
+        return loss_cross_entropy 
 
     @staticmethod
     def backward(ctx, grad_output):
 
         # step 4: get q and label from ctx and calculate the derivative of loss w.r.t. pred (dL/dz)
-        ???
+        pred, label = ctx.saved_tensors
+        grad_input = grad_output * (pred - label)
 
         # return the pred (dL/dz) and None for dL/dlabel since we do not need to compute dL/dlabel
-        ???
+        return grad_input, None

@@ -1,0 +1,15 @@
+python recognition.py --mode predict --im_path data/character_classification/new_images/1_W.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/2_I.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/3_S.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/4_H.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/5_Y.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/6_O.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/7_U.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/8_A.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/9_N.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/10_I.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/11_C.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/12_E.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/13_D.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/14_A.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64
+python recognition.py --mode predict --im_path data/character_classification/new_images/15_Y.jpg --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth --hsize 64

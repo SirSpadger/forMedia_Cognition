@@ -1,0 +1,1 @@
+python recognition.py --mode train --hsize 64 --lr 1e-3 --optim_type adam --momentum 15 --weight_decay 0.1 --epoch 100 --model_path .\saved_models\ADAM_opt_trial_lr1e-3_momentum15_epoch100.pth      

@@ -1,0 +1,1 @@
+python recognition.py --mode test --hsize 64 --model_path .\saved_models\ADAM_opt.pth

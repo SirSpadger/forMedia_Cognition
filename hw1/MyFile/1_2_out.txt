@@ -1,0 +1,2 @@
+[Info] Load model from saved_models/recognition.pth
+[Info] Test accuracy = 67.0%

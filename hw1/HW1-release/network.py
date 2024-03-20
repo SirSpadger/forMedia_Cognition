@@ -2,8 +2,8 @@
 #             Media and Cognition
 #             Homework 1 Neural network basics
 #             network.py - linear layer and MLP network
-#             Student ID:
-#             Name:
+#             Student ID: 2022010608
+#             Name: Bi Jiayi
 #             Tsinghua University
 #             (C) Copyright 2024
 #========================================================
@@ -65,7 +65,7 @@ class LinearFunction(torch.autograd.Function):
 
         grad_input = torch.matmul(grad_output, W)
         grad_W = torch.matmul(grad_output.T, x)
-        grad_b = grad_output.sum(0)
+        grad_b = grad_output.sum(0) # adds directly since there is no activation func
 
         return grad_input, grad_W, grad_b
 
@@ -101,14 +101,14 @@ class MLP(nn.Module):
         :param act_type: type of activation function for each hidden layer, can be none, sigmoid, tanh, or relu
         '''
         # TODO 1: initialize the parent class nn.Module
-        ???
+        super(MLP, self).__init__()
 
         # total layer number should be hidden layer number + 1 (output layer)
         assert len(hidden_size) + 1 == n_layers, 'total layer number should be hidden layer number + 1'
 
         # TODO 2；complete the network structures 
         # instantiate the activation function by using the defined classes in activations.py
-        ???
+        self.act = Activation(act_type)
 
         # initialize a list to save layers
         layers = nn.ModuleList()
@@ -116,7 +116,7 @@ class MLP(nn.Module):
         if n_layers == 1:
             # append a linear layer into the module list
             # if n_layers == 1, MLP degenerates to a single linear layer
-            ???
+            layers.append(Linear(input_size, output_size))
 
         # MLP with at least 2 layers
         else:
@@ -125,17 +125,16 @@ class MLP(nn.Module):
             in_size = input_size
             for i in range(n_layers - 1):
                 layer = Linear(in_size, hidden_size[i])
-                ??? # append the linear layer into the module list
+                layers.append(layer) # append the linear layer into the module list
                 layers.append(self.act)
-                ??? # update in_size for the next layer
+                in_size = hidden_size[i] # update in_size for the next layer
 
             # initialize the output layer and append the layer into the module list
             # hint: what is the output size of the output layer?
-            ???
+            layers.append(Linear(hidden_size[-1], output_size))
 
         # Use nn.Sequential to get the neural network
-        ???
-
+        self.network = torch.nn.Sequential(*layers)
 
     def forward(self, x):
         '''
@@ -144,6 +143,6 @@ class MLP(nn.Module):
         :return: output features with size [batch_size, output_size]
         '''
         # TODO 3: implement the forward propagation of the MLP
-        out = ???
+        out = self.network(x)
 
         return out

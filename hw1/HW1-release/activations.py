@@ -2,8 +2,8 @@
 #             Media and Cognition
 #             Homework 1 Neural network basics
 #             activations.py - activation functions
-#             Student ID:
-#             Name:
+#             Student ID: 2022010608
+#             Name: Bi Jiayi
 #             Tsinghua University
 #             (C) Copyright 2024
 #========================================================
@@ -76,10 +76,10 @@ class Sigmoid(torch.autograd.Function):
     def forward(ctx, x):
 
         # hint: you can use torch.exp(x) to calculate exp(x)
-        ???
+        y = 1 / (1 + torch.exp(-x))
 
         # here we save y in ctx, in this way we can use y to calculate gradients in backward process
-        ???
+        ctx.save_for_backward(y)
 
         return y
 
@@ -87,12 +87,12 @@ class Sigmoid(torch.autograd.Function):
     def backward(ctx, grad_output):
 
         # get y from ctx
-        ???
+        y, = ctx.saved_tensors
 
         # implement gradient of x (grad_input), grad_input refers to dL/dx
         # chain rule: dL/dx = dL/dy * dy/dx
         # where dL/dy = grad_output, and dy/dx of Sigmoid function is y * (1 - y)
-        ???
+        grad_input = grad_output * y * (1 - y)
 
         return grad_input
 
@@ -109,10 +109,10 @@ class ReLU(torch.autograd.Function):
 
         # set elements less than 0 in x to 0
         # this operation is inplace
-        ???
+        x = torch.max(x, torch.tensor([0.]))
 
         # save x in ctx, in this way we can use x to calculate gradients in backward process
-        ???
+        ctx.save_for_backward(x)
 
         # return the output
         return x
@@ -126,12 +126,11 @@ class ReLU(torch.autograd.Function):
         """
 
         # get x from ctx
-        ???
+        x, = ctx.saved_tensors
 
         # chain rule: dL/dx = dL/dy * dy/dx
         # where dL/dy = grad_output, and dy/dx of ReLU function is 1 if x > 0, and 0 if x <= 0
-        ???
-        
+        grad_input = grad_output * torch.heaviside(x, torch.tensor([0.]))
         return grad_input
 
 

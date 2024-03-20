@@ -2,26 +2,28 @@
 #             Media and Cognition
 #             Homework 1 Neural network basics
 #             recognition.py - character classification
-#             Student ID:
-#             Name:
+#             Student ID: 2022010608
+#             Name: Bi Jiayi
 #             Tsinghua University
 #             (C) Copyright 2024
 #========================================================
 
 # ==== Part 0: import libs
+# argparse is used to conveniently set our configurations
+import argparse
+import json
+import os
+import string
+
+import cv2
+import matplotlib.pyplot as plt
 import torch
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-
-import json, cv2, os, string
-import matplotlib.pyplot as plt
+from losses import CrossEntropyLoss
 
 # this time we implement our networks and loss functions in other python script, and import them here
 from network import MLP
-from losses import CrossEntropyLoss
-
-# argparse is used to conveniently set our configurations
-import argparse
+from torch.utils.data import DataLoader, Dataset
 
 # ==== Part 1: data loader
 
@@ -73,7 +75,7 @@ class ListDataset(Dataset):
         label = self.alphabet[label]
 
         # TODO 1: return the image and its label
-        ???
+        return im, label
         
 
 
@@ -145,29 +147,32 @@ def train_val(model, trainloader, valloader, n_epochs,
         total_loss = 0.
 
         #TODO 2: Calculate losses and train the network using the optimizer
-        for ??? :  # get a batch of data
+        for train_data, train_label in trainloader :  # get a batch of data
 
             # step 1: set data type and device
-            ???
+            train_data = train_data.type(torch.float32)
+            train_data.to(device)
+            train_label.to(device)
 
             # step 2: convert an image to a vector as the input of the MLP
-            ???
+            train_data = torch.flatten(train_data, start_dim=1)
 
             # hit: clear gradients in the optimizer
-            ???
+            optimizer.zero_grad()
 
             # step 3: run the model which is the forward process
-            ???
+            train_output = model(train_data)
 
             # step 4: compute the loss, and call backward propagation function
-            ???
+            loss = ce_loss(train_output, train_label)
+            loss.backward()
 
             # step 5: sum up of total loss, loss.item() return the value of the tensor as a standard python number
             # this operation is not differentiable
-            ???
+            total_loss += loss.item()
 
             # step 6: call a function, optimizer.step(), to update the parameters of the models
-            ???
+            optimizer.step()
 
         # average of the total loss for iterations
         avg_loss = total_loss / len(trainloader)
@@ -182,7 +187,8 @@ def train_val(model, trainloader, valloader, n_epochs,
 
 
     # save model parameters in a file
-    model_save_path = 'saved_models/recognition.pth'.format(epoch + 1)
+    # model_save_path = 'saved_models/recognition.pth'.format(epoch + 1)
+    model_save_path = opt.model_path
 
     torch.save({'state_dict': model.state_dict(),
                 }, model_save_path)
@@ -211,19 +217,23 @@ def test(model, testloader, device):
         #TODO 3: get the prediction of the data and calculate the accuracy
         for imgs, labels in testloader:
             # step 1: set data type and device
-            ???
+            imgs = imgs.type(torch.float32)
+            imgs = imgs.to(device)
+            labels = labels.to(device)
 
             # step 2: convert an image to a vector as the input of the MLP
-            ???
+            imgs = torch.flatten(imgs, start_dim=1)
 
             # step 3: run the model which is the forward process
-            ???
+            test_output = model(imgs)
 
             # step 4: get the predicted value by the output using out.argmax(1)
-            ???
+            predicted_value = test_output.argmax(1)
 
             # step 5: sum up the number of images correctly recognized and the total image number
-            ???
+            for pred, label in zip(predicted_value, labels):
+                n_correct += (pred == label).sum().item()
+                n_imgs += 1
     accuracy = n_correct / n_imgs
     return accuracy
 
@@ -240,10 +250,15 @@ def predict(model, im_path, norm_size, device):
     '''
 
     # TODO 4: enter the evaluation mode
-    ???
+    model.eval()
 
     # TODO 4: image pre-processing, similar to what we do in ListDataset()
-    ???
+    im = cv2.imread(im_path)
+    im = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+
+    im = cv2.resize(im, norm_size)
+    im = im / 255.
+    im = (im - 0.5) * 2.0
 
     # convert im from numpy.ndarray to torch.tensor
     im = torch.from_numpy(im)
@@ -283,7 +298,7 @@ def plot_loss(losses):
 
 if __name__ == '__main__':
     # set random seed for reproducibility
-    seed = 2023
+    seed = 2024
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -328,7 +343,7 @@ if __name__ == '__main__':
     # what is the input size of the MLP?
     # hint 1: we convert an image to a vector as the input of the MLP
     # hint 2: each image has shape [norm_size[0], norm_size[1]]
-    model = ???
+    model = MLP(opt.norm_size[0] * opt.norm_size[1], 26, [int(i) for i in opt.hsize.split(',')], opt.layer, opt.act)
 
     # for the 'test' and 'predict' mode, we should load the saved checkpoint into the model
     if opt.mode == 'test' or opt.mode == 'predict':
@@ -338,7 +353,7 @@ if __name__ == '__main__':
         print('[Info] Load model from {}'.format(opt.model_path))
 
     # put the model on CPU or GPU according to the device in args
-    model = ???
+    model = model.to(opt.device)
 
     # -- run the code for training and validation
     if opt.mode == 'train':

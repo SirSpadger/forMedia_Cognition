@@ -1,0 +1,1 @@
+python recognition.py --mode train --hsize 64 --lr 2e-3 --optim_type adam --momentum 0 --weight_decay 0.1 --model_path .\saved_models\ADAM_opt.pth
