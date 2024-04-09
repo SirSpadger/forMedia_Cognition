@@ -1,0 +1,93 @@
+training...
+Epoch 01: loss = 2.849, accuracy on validation set = 0.175
+Model saved in checkpoints/default\ckpt_epoch_1.pth
+
+Epoch 02: loss = 2.403, accuracy on validation set = 0.265
+Model saved in checkpoints/default\ckpt_epoch_2.pth
+
+Epoch 03: loss = 2.088, accuracy on validation set = 0.306
+Model saved in checkpoints/default\ckpt_epoch_3.pth
+
+Epoch 04: loss = 1.930, accuracy on validation set = 0.327
+Model saved in checkpoints/default\ckpt_epoch_4.pth
+
+Epoch 05: loss = 1.807, accuracy on validation set = 0.377
+Model saved in checkpoints/default\ckpt_epoch_5.pth
+
+Epoch 06: loss = 1.699, accuracy on validation set = 0.463
+Model saved in checkpoints/default\ckpt_epoch_6.pth
+
+Epoch 07: loss = 1.597, accuracy on validation set = 0.500
+Model saved in checkpoints/default\ckpt_epoch_7.pth
+
+Epoch 08: loss = 1.452, accuracy on validation set = 0.527
+Model saved in checkpoints/default\ckpt_epoch_8.pth
+
+Epoch 09: loss = 1.281, accuracy on validation set = 0.562
+Model saved in checkpoints/default\ckpt_epoch_9.pth
+
+Epoch 10: loss = 1.227, accuracy on validation set = 0.590
+Model saved in checkpoints/default\ckpt_epoch_10.pth
+
+Epoch 11: loss = 1.107, accuracy on validation set = 0.567
+Model saved in checkpoints/default\ckpt_epoch_11.pth
+
+Epoch 12: loss = 1.053, accuracy on validation set = 0.602
+Model saved in checkpoints/default\ckpt_epoch_12.pth
+
+Epoch 13: loss = 0.983, accuracy on validation set = 0.690
+Model saved in checkpoints/default\ckpt_epoch_13.pth
+
+Epoch 14: loss = 0.961, accuracy on validation set = 0.658
+Model saved in checkpoints/default\ckpt_epoch_14.pth
+
+Epoch 15: loss = 0.874, accuracy on validation set = 0.700
+Model saved in checkpoints/default\ckpt_epoch_15.pth
+
+
+(media_cognition) C:\000bijiayi\011Media_Cognition_HW\hw2\code>python train.py --ckpt_path checkpoints/default
+training...
+Epoch 01: loss = 2.849, accuracy on validation set = 0.175
+Model saved in checkpoints/default\ckpt_epoch_1.pth
+
+Epoch 02: loss = 2.403, accuracy on validation set = 0.265
+Model saved in checkpoints/default\ckpt_epoch_2.pth
+
+Epoch 03: loss = 2.088, accuracy on validation set = 0.306
+Model saved in checkpoints/default\ckpt_epoch_3.pth
+
+Epoch 04: loss = 1.930, accuracy on validation set = 0.327
+Model saved in checkpoints/default\ckpt_epoch_4.pth
+
+Epoch 05: loss = 1.807, accuracy on validation set = 0.377
+Model saved in checkpoints/default\ckpt_epoch_5.pth
+
+Epoch 06: loss = 1.699, accuracy on validation set = 0.463
+Model saved in checkpoints/default\ckpt_epoch_6.pth
+
+Epoch 07: loss = 1.597, accuracy on validation set = 0.500
+Model saved in checkpoints/default\ckpt_epoch_7.pth
+
+Epoch 08: loss = 1.452, accuracy on validation set = 0.527
+Model saved in checkpoints/default\ckpt_epoch_8.pth
+
+Epoch 09: loss = 1.281, accuracy on validation set = 0.562
+Model saved in checkpoints/default\ckpt_epoch_9.pth
+
+Epoch 10: loss = 1.227, accuracy on validation set = 0.590
+Model saved in checkpoints/default\ckpt_epoch_10.pth
+
+Epoch 11: loss = 1.107, accuracy on validation set = 0.567
+Model saved in checkpoints/default\ckpt_epoch_11.pth
+
+Epoch 12: loss = 1.053, accuracy on validation set = 0.602
+Model saved in checkpoints/default\ckpt_epoch_12.pth
+
+Epoch 13: loss = 0.983, accuracy on validation set = 0.690
+Model saved in checkpoints/default\ckpt_epoch_13.pth
+
+Epoch 14: loss = 0.961, accuracy on validation set = 0.658
+Model saved in checkpoints/default\ckpt_epoch_14.pth
+
+Epoch 15: loss = 0.874, accuracy on validation set = 0.700
+Model saved in checkpoints/default\ckpt_epoch_15.pth
