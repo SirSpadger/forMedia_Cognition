@@ -11,7 +11,8 @@
 import os
 
 import numpy as np
-import torchvision.transforms as transforms
+import torch
+import torchvision.transforms.v2 as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 
@@ -39,9 +40,16 @@ def get_data_loader(
     #   (2) convert the images to PyTorch tensors
     #   (3) normalize the pixel values to [-1, 1]
     data_transforms = [
-        transforms.RandomResizedCrop(size=image_size, antialias=True), 
-        transforms.ToTensor(), 
-        transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
+        # transforms.RandomResizedCrop(size=image_size, antialias=True), 
+        # transforms.ToTensor(), 
+        # transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
+        transforms.Resize(image_size),
+        # transforms.ToImage(),
+        # transforms.ToDtype(torch.float32, scale=True),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
+
     ]
 
     # You should insert some data augmentation techniques to `data_transforms` when `augment` is True

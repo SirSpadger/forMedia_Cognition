@@ -51,7 +51,7 @@ class ConvBlock(nn.Module):
         # conv -> batchnorm -> relu
         self.conv = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size, stride=stride, padding=padding)
         self.bn = bn2d(out_channels)
-        self.relu = nn.ReLU(True)
+        self.relu = nn.ReLU()
         # <<< TODO 2.1
 
     def forward(self, x):
@@ -123,6 +123,8 @@ class Classifier(nn.Module):
             ConvBlock(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1, use_residual=True), 
             nn.Dropout(dropout_prob)
         )
+        # 3 * 32 * 32 -> 32 * 32 * 32 -> 64 * 16 * 16 -> 64 * 8 * 8 -> 128 * 8 * 8 -> 128 * 4 * 4 -> 128 * 4 * 4
+
         # <<< TODO 3.1
 
         # >>> TODO 3.2: complete a sub-network with two linear layers by using nn.Sequential function
@@ -139,7 +141,7 @@ class Classifier(nn.Module):
         # linear       num_classes
         self.fc_net = nn.Sequential(
             nn.Linear(128 * 4 * 4, 256), 
-            nn.ReLU(True), 
+            nn.ReLU(), 
             bn1d(256), 
             nn.Dropout(dropout_prob), 
             nn.Linear(256, num_classes)
@@ -204,20 +206,21 @@ class STN(nn.Module):
         # this network.
         # Suggested structure: 3 down-sampling convolutional layers with doubling output channels, using BN and ReLU.
         self.localization_conv = nn.Sequential(
-            ConvBlock(in_channels=in_channels, out_channels=2 * in_channels, kernel_size=5, stride=2, padding=2, use_batch_norm=True, use_residual=False), 
-            ConvBlock(in_channels=2 * in_channels, out_channels=4 * in_channels, kernel_size=5, stride=1, padding=0, use_batch_norm=True, use_residual=False), 
-            ConvBlock(in_channels=4 * in_channels, out_channels=8 * in_channels, kernel_size=5, stride=1, padding=0, use_batch_norm=True, use_residual=False)
+            ConvBlock(in_channels=in_channels, out_channels=8, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False), 
+            ConvBlock(in_channels=8, out_channels=16, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False), 
+            ConvBlock(in_channels=16, out_channels=32, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False)
         )
+        # 3 * 32 *32 -> 8 * 16 * 16 -> 16 * 8 * 8 -> 32 * 4 * 4
 
         # Step 2: Build a fully connected network to predict the parameters of affine transformation from
         # the extracted features.
         # Hint: Combine linear layers and ReLU activation functions to build this network.
         # Suggested structure: 2 linear layers with one BN and ReLU.
         self.localization_fc = nn.Sequential(
-            nn.Linear(24 * 8 * 8, 32), 
-            nn.ReLU(True), 
-            nn.BatchNorm1d(32), 
-            nn.Linear(32, 2 * 3)
+            nn.Linear(4 * 4, 256), 
+            nn.ReLU(), 
+            nn.BatchNorm1d(256), 
+            nn.Linear(256, 2 * 3)
         )
         # <<< TODO 4.1
 
