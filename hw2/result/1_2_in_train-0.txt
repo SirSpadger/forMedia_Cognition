@@ -1,0 +1,1 @@
+python train.py --ckpt_path checkpoints/bn --bn
