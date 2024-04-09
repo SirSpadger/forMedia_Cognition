@@ -217,7 +217,7 @@ class STN(nn.Module):
         # Hint: Combine linear layers and ReLU activation functions to build this network.
         # Suggested structure: 2 linear layers with one BN and ReLU.
         self.localization_fc = nn.Sequential(
-            nn.Linear(4 * 4, 256), 
+            nn.Linear(32 * 4 * 4, 256), 
             nn.ReLU(), 
             nn.BatchNorm1d(256), 
             nn.Linear(256, 2 * 3)

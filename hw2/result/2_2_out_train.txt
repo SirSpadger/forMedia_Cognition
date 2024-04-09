@@ -1,0 +1,39 @@
+training...
+Epoch 01: loss = 2.478, accuracy on validation set = 0.333
+Model saved in checkpoints/bn_aug\ckpt_epoch_1.pth
+
+Epoch 02: loss = 1.306, accuracy on validation set = 0.756
+Model saved in checkpoints/bn_aug\ckpt_epoch_2.pth
+
+Epoch 03: loss = 0.661, accuracy on validation set = 0.875
+Model saved in checkpoints/bn_aug\ckpt_epoch_3.pth
+
+Epoch 04: loss = 0.398, accuracy on validation set = 0.887
+Model saved in checkpoints/bn_aug\ckpt_epoch_4.pth
+
+Epoch 05: loss = 0.246, accuracy on validation set = 0.935
+Model saved in checkpoints/bn_aug\ckpt_epoch_5.pth
+
+Epoch 06: loss = 0.145, accuracy on validation set = 0.904
+Model saved in checkpoints/bn_aug\ckpt_epoch_6.pth
+
+Epoch 07: loss = 0.142, accuracy on validation set = 0.960
+Model saved in checkpoints/bn_aug\ckpt_epoch_7.pth
+
+Epoch 08: loss = 0.097, accuracy on validation set = 0.954
+Model saved in checkpoints/bn_aug\ckpt_epoch_8.pth
+
+Epoch 09: loss = 0.065, accuracy on validation set = 0.967
+Model saved in checkpoints/bn_aug\ckpt_epoch_9.pth
+
+Epoch 10: loss = 0.078, accuracy on validation set = 0.963
+Model saved in checkpoints/bn_aug\ckpt_epoch_10.pth
+
+Epoch 11: loss = 0.071, accuracy on validation set = 0.967
+Model saved in checkpoints/bn_aug\ckpt_epoch_11.pth
+
+Epoch 12: loss = 0.040, accuracy on validation set = 0.967
+Model saved in checkpoints/bn_aug\ckpt_epoch_12.pth
+
+Epoch 13: loss = 0.027, accuracy on validation set = 0.962
+Model saved in checkpoints/bn_aug\ckpt_epoch_13.pth

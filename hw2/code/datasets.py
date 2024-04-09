@@ -44,9 +44,8 @@ def get_data_loader(
         # transforms.ToTensor(), 
         # transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
         transforms.Resize(image_size),
-        # transforms.ToImage(),
-        # transforms.ToDtype(torch.float32, scale=True),
-        transforms.ToTensor(),
+        transforms.ToImage(),
+        transforms.ToDtype(torch.float32, scale=True),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
 
@@ -56,9 +55,11 @@ def get_data_loader(
     # for the training dataset.
     # Consider what is an appropriate data augmentation technique for traffic sign classification.
     if mode == "train" and augment:
-        # data_transforms.append(transforms.RandomAffine(30))
-        data_transforms.append(transforms.RandomRotation(30))
-        data_transforms.append(transforms.RandomPerspective(0.5))
+        # data_transforms.append(transforms.RandomAffine(5))
+        data_transforms.append(transforms.RandomRotation(10))
+        data_transforms.append(transforms.RandomPerspective(0.2))
+        # data_transforms.append(transforms.AutoAugment())
+
 # perspective & rotation because of perspective, 
 # no color change or flip because of the message may change
 
