@@ -1,0 +1,15 @@
+python visualize.py --type filter --ckpt_path checkpoints/bn --layer_idx 0
+python visualize.py --type filter --ckpt_path checkpoints/bn --layer_idx 1
+python visualize.py --type filter --ckpt_path checkpoints/bn --layer_idx 2
+python visualize.py --type filter --ckpt_path checkpoints/bn --layer_idx 3
+python visualize.py --type filter --ckpt_path checkpoints/bn --layer_idx 4
+
+python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 0 --image_idx 50
+python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 1 --image_idx 50
+python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 2 --image_idx 50
+python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 3 --image_idx 50
+python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 4 --image_idx 50
+
+python visualize.py --type tsne --ckpt_path checkpoints/bn
+
+python visualize.py --type stn --ckpt_path checkpoints/stn

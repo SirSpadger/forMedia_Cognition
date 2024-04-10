@@ -1,1 +1,1 @@
-python test.py --ckpt_path checkpoints/dropout --epoch 10
+python test.py --ckpt_path checkpoints/dropout_epoch25 --epoch 25

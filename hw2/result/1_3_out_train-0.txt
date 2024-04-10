@@ -1,45 +1,75 @@
 training...
 Epoch 01: loss = 2.881, accuracy on validation set = 0.206
-Model saved in checkpoints/dropout\ckpt_epoch_1.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_1.pth
 
 Epoch 02: loss = 2.147, accuracy on validation set = 0.413
-Model saved in checkpoints/dropout\ckpt_epoch_2.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_2.pth
 
 Epoch 03: loss = 1.667, accuracy on validation set = 0.498
-Model saved in checkpoints/dropout\ckpt_epoch_3.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_3.pth
 
 Epoch 04: loss = 1.283, accuracy on validation set = 0.612
-Model saved in checkpoints/dropout\ckpt_epoch_4.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_4.pth
 
 Epoch 05: loss = 0.928, accuracy on validation set = 0.715
-Model saved in checkpoints/dropout\ckpt_epoch_5.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_5.pth
 
 Epoch 06: loss = 0.656, accuracy on validation set = 0.817
-Model saved in checkpoints/dropout\ckpt_epoch_6.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_6.pth
 
 Epoch 07: loss = 0.474, accuracy on validation set = 0.800
-Model saved in checkpoints/dropout\ckpt_epoch_7.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_7.pth
 
 Epoch 08: loss = 0.380, accuracy on validation set = 0.833
-Model saved in checkpoints/dropout\ckpt_epoch_8.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_8.pth
 
 Epoch 09: loss = 0.268, accuracy on validation set = 0.863
-Model saved in checkpoints/dropout\ckpt_epoch_9.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_9.pth
 
 Epoch 10: loss = 0.177, accuracy on validation set = 0.869
-Model saved in checkpoints/dropout\ckpt_epoch_10.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_10.pth
 
 Epoch 11: loss = 0.153, accuracy on validation set = 0.879
-Model saved in checkpoints/dropout\ckpt_epoch_11.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_11.pth
 
 Epoch 12: loss = 0.134, accuracy on validation set = 0.888
-Model saved in checkpoints/dropout\ckpt_epoch_12.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_12.pth
 
 Epoch 13: loss = 0.103, accuracy on validation set = 0.908
-Model saved in checkpoints/dropout\ckpt_epoch_13.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_13.pth
 
 Epoch 14: loss = 0.062, accuracy on validation set = 0.896
-Model saved in checkpoints/dropout\ckpt_epoch_14.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_14.pth
 
 Epoch 15: loss = 0.083, accuracy on validation set = 0.929
-Model saved in checkpoints/dropout\ckpt_epoch_15.pth
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_15.pth
+
+Epoch 16: loss = 0.070, accuracy on validation set = 0.919
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_16.pth
+
+Epoch 17: loss = 0.047, accuracy on validation set = 0.931
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_17.pth
+
+Epoch 18: loss = 0.050, accuracy on validation set = 0.931
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_18.pth
+
+Epoch 19: loss = 0.105, accuracy on validation set = 0.921
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_19.pth
+
+Epoch 20: loss = 0.107, accuracy on validation set = 0.906
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_20.pth
+
+Epoch 21: loss = 0.067, accuracy on validation set = 0.912
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_21.pth
+
+Epoch 22: loss = 0.042, accuracy on validation set = 0.938
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_22.pth
+
+Epoch 23: loss = 0.014, accuracy on validation set = 0.933
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_23.pth
+
+Epoch 24: loss = 0.045, accuracy on validation set = 0.917
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_24.pth
+
+Epoch 25: loss = 0.043, accuracy on validation set = 0.925
+Model saved in checkpoints/dropout_epoch25\ckpt_epoch_25.pth

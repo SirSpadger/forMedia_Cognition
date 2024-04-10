@@ -1,1 +1,1 @@
-python train.py --ckpt_path checkpoints/bn_aug --bn --augment
+python train.py --ckpt_path checkpoints/bn_aug --bn --augment --epoch 13

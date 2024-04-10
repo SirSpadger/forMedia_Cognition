@@ -1,45 +1,90 @@
 training...
-Epoch 01: loss = 2.446, accuracy on validation set = 0.244
+Epoch 01: loss = 2.687, accuracy on validation set = 0.246
 Model saved in checkpoints/stn\ckpt_epoch_1.pth
 
-Epoch 02: loss = 1.424, accuracy on validation set = 0.587
+Epoch 02: loss = 2.147, accuracy on validation set = 0.277
 Model saved in checkpoints/stn\ckpt_epoch_2.pth
 
-Epoch 03: loss = 0.722, accuracy on validation set = 0.865
+Epoch 03: loss = 1.771, accuracy on validation set = 0.319
 Model saved in checkpoints/stn\ckpt_epoch_3.pth
 
-Epoch 04: loss = 0.438, accuracy on validation set = 0.883
+Epoch 04: loss = 1.404, accuracy on validation set = 0.540
 Model saved in checkpoints/stn\ckpt_epoch_4.pth
 
-Epoch 05: loss = 0.373, accuracy on validation set = 0.875
+Epoch 05: loss = 1.056, accuracy on validation set = 0.654
 Model saved in checkpoints/stn\ckpt_epoch_5.pth
 
-Epoch 06: loss = 0.213, accuracy on validation set = 0.902
+Epoch 06: loss = 0.873, accuracy on validation set = 0.708
 Model saved in checkpoints/stn\ckpt_epoch_6.pth
 
-Epoch 07: loss = 0.171, accuracy on validation set = 0.883
+Epoch 07: loss = 0.639, accuracy on validation set = 0.767
 Model saved in checkpoints/stn\ckpt_epoch_7.pth
 
-Epoch 08: loss = 0.161, accuracy on validation set = 0.938
+Epoch 08: loss = 0.474, accuracy on validation set = 0.808
 Model saved in checkpoints/stn\ckpt_epoch_8.pth
 
-Epoch 09: loss = 0.095, accuracy on validation set = 0.938
+Epoch 09: loss = 0.430, accuracy on validation set = 0.844
 Model saved in checkpoints/stn\ckpt_epoch_9.pth
 
-Epoch 10: loss = 0.150, accuracy on validation set = 0.927
+Epoch 10: loss = 0.364, accuracy on validation set = 0.835
 Model saved in checkpoints/stn\ckpt_epoch_10.pth
 
-Epoch 11: loss = 0.101, accuracy on validation set = 0.954
+Epoch 11: loss = 0.380, accuracy on validation set = 0.846
 Model saved in checkpoints/stn\ckpt_epoch_11.pth
 
-Epoch 12: loss = 0.055, accuracy on validation set = 0.950
+Epoch 12: loss = 0.301, accuracy on validation set = 0.898
 Model saved in checkpoints/stn\ckpt_epoch_12.pth
 
-Epoch 13: loss = 0.050, accuracy on validation set = 0.967
+Epoch 13: loss = 0.293, accuracy on validation set = 0.827
 Model saved in checkpoints/stn\ckpt_epoch_13.pth
 
-Epoch 14: loss = 0.025, accuracy on validation set = 0.963
+Epoch 14: loss = 0.273, accuracy on validation set = 0.910
 Model saved in checkpoints/stn\ckpt_epoch_14.pth
 
-Epoch 15: loss = 0.146, accuracy on validation set = 0.908
+Epoch 15: loss = 0.197, accuracy on validation set = 0.898
 Model saved in checkpoints/stn\ckpt_epoch_15.pth
+
+Epoch 16: loss = 0.176, accuracy on validation set = 0.877
+Model saved in checkpoints/stn\ckpt_epoch_16.pth
+
+Epoch 17: loss = 0.219, accuracy on validation set = 0.869
+Model saved in checkpoints/stn\ckpt_epoch_17.pth
+
+Epoch 18: loss = 0.193, accuracy on validation set = 0.883
+Model saved in checkpoints/stn\ckpt_epoch_18.pth
+
+Epoch 19: loss = 0.156, accuracy on validation set = 0.883
+Model saved in checkpoints/stn\ckpt_epoch_19.pth
+
+Epoch 20: loss = 0.151, accuracy on validation set = 0.908
+Model saved in checkpoints/stn\ckpt_epoch_20.pth
+
+Epoch 21: loss = 0.127, accuracy on validation set = 0.910
+Model saved in checkpoints/stn\ckpt_epoch_21.pth
+
+Epoch 22: loss = 0.117, accuracy on validation set = 0.931
+Model saved in checkpoints/stn\ckpt_epoch_22.pth
+
+Epoch 23: loss = 0.138, accuracy on validation set = 0.888
+Model saved in checkpoints/stn\ckpt_epoch_23.pth
+
+Epoch 24: loss = 0.195, accuracy on validation set = 0.860
+Model saved in checkpoints/stn\ckpt_epoch_24.pth
+
+Epoch 25: loss = 0.159, accuracy on validation set = 0.908
+Model saved in checkpoints/stn\ckpt_epoch_25.pth
+
+Epoch 26: loss = 0.099, accuracy on validation set = 0.904
+Model saved in checkpoints/stn\ckpt_epoch_26.pth
+
+Epoch 27: loss = 0.108, accuracy on validation set = 0.944
+Model saved in checkpoints/stn\ckpt_epoch_27.pth
+
+Epoch 28: loss = 0.078, accuracy on validation set = 0.898
+Model saved in checkpoints/stn\ckpt_epoch_28.pth
+
+Epoch 29: loss = 0.078, accuracy on validation set = 0.900
+Model saved in checkpoints/stn\ckpt_epoch_29.pth
+
+Epoch 30: loss = 0.183, accuracy on validation set = 0.919
+Model saved in checkpoints/stn\ckpt_epoch_30.pth

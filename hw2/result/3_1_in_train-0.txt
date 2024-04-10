@@ -1,1 +1,1 @@
-python train.py --ckpt_path checkpoints/stn --bn --stn
+python train.py --ckpt_path checkpoints/stn --bn --stn --epoch 30
