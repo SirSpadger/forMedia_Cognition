@@ -98,8 +98,9 @@ W=\left[ \begin{array}{cc}
     -0.3 & 0.4
 \end{array}\right], b=0.04$$
 }
-\subsubsection{请计算卷积层的输出$Y$。}
 
+\subsubsection{请计算卷积层的输出$Y$。}
+\begin{proof}[解]
 \[y_{11} = 0.05 + 0.04 - 0.18 + 0.16 + 0.04 = 0.11\]
 \[y_{12} = -0.02 - 0.02 - 0.12 - 0.04 + 0.04 = -0.20\]
 \[y_{21} = 0.06 - 0.08 + 0.12 + 0.20 + 0.04 = 0.34\]
@@ -108,12 +109,14 @@ W=\left[ \begin{array}{cc}
                 0.11 & -0.20 \\
                 0.34 & 0.03 \\
                 \end{bmatrix}\]
+\end{proof}
 
 \subsubsection{若训练过程中的目标函数为$L$，且已知$\frac{\partial L}{\partial Y}=\left[ \begin{array}{cc}
     0.3 & 0.1 \\
     -0.4 & 0.2
 \end{array} \right]$，请计算$\frac{\partial L}{\partial X}$。
 }
+\begin{proof}[解]
 \begin{align*}
     \frac{\partial L}{\partial X} &= \mathrm{zero\_padded}(\frac{\partial L}{\partial Y}) * W^{\mathrm{T}} \\
     &= \begin{bmatrix}
@@ -132,6 +135,7 @@ W=\left[ \begin{array}{cc}
         0.12 & -0.22 & 0.08 \\
     \end{bmatrix}
 \end{align*}
+\end{proof}
 
 注：本题的计算方式不限，但需要提供计算过程以及各步骤的结果。
 \vspace{6mm}
@@ -196,7 +200,7 @@ W=\left[ \begin{array}{cc}
         output:
         \lstinputlisting{../result/1_2_out_test-0.txt}
 
-        分析：测试准确率明显提升，收敛速度也大大加快。
+        分析：batchnorm对各通道输出的数据进行归一化以后，有效缓解了梯度消失，测试准确率明显提升，收敛速度也大大加快。
         \vspace{2em}
 
         \item 启用 dropout 并设置概率为 0.3：
@@ -221,7 +225,7 @@ W=\left[ \begin{array}{cc}
         output:
         \lstinputlisting{../result/1_3_out_test-0.txt}
 
-        分析：测试准确率明显提升，收敛速度有所降低。
+        分析：dropout通过丢弃某些节点的激活值，缓解过拟合问题；模型泛化能力提高，测试准确率明显提升，收敛速度有所降低。
 
     \end{enumerate}
     \vspace{2em}
@@ -393,12 +397,12 @@ if mode == "train" and augment:
 
 \section{遇到的问题及解决方法}
     \begin{enumerate}
-        \item 没有明白stn网络是如何构建的，完全面向官方文档编程，但也没有太搞明白一些参数是怎么设置的。
+        \item 没有明白stn网络是如何构建的，完全面向官方文档编程，但也没有太搞明白一些参数是怎么设置的。听了课上讲解之后理解了不少。
         \item 本次的模型训练中，默认设置的网络识别准确率极高，导致后面进行数据增广和stn网络训练后准确率不增反掉，寻找合适的增广变换和对stn的调整花费了很多时间。
     \end{enumerate}
 
 \section{建议}
-希望可以大概讲一下各个参数设置的业界习惯之类的，不然感觉自己敲出来的代码看上去非常外行。
+希望可以大概讲一下各个参数和模型结构设置的业界习惯之类的，不然感觉自己敲出来的代码看上去非常外行……谢谢！
 
 
 
