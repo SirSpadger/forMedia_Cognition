@@ -115,11 +115,11 @@ W=\left[ \begin{array}{cc}
 \end{array} \right]$，请计算$\frac{\partial L}{\partial X}$。
 }
 \begin{align*}
-    \frac{\partial L}{\partial X} &= \mathrm{zero\_padded}(Y) * W^{\mathrm{T}} \\
+    \frac{\partial L}{\partial X} &= \mathrm{zero\_padded}(\frac{\partial L}{\partial Y}) * W^{\mathrm{T}} \\
     &= \begin{bmatrix}
         0 & 0 & 0 & 0 \\
-        0 & 0.11 & -0.20 & 0 \\
-        0 & 0.34 & 0.03 & 0 \\
+        0 & 0.3 & 0.1 & 0 \\
+        0 & -0.4 & 0.2 & 0 \\
         0 & 0 & 0 & 0 \\
     \end{bmatrix} *
     \begin{bmatrix}
@@ -127,9 +127,9 @@ W=\left[ \begin{array}{cc}
         -0.2 & 0.1 \\
     \end{bmatrix} \\
     &= \begin{bmatrix}
-        0.011 & 0.104 & 0.004 \\
-        0.001 & 0.039 & -0.086 \\
-        -0.102 & 0.127 &0.012 \\
+        0.03 & -0.05 & -0.02 \\
+        -0.13 & 0.19 & 0 \\
+        0.12 & -0.22 & 0.08 \\
     \end{bmatrix}
 \end{align*}
 
@@ -279,7 +279,26 @@ if mode == "train" and augment:
 
 
     \item 探究空间变换网络 (STN) 的作用
-    
+    训练模型：
+
+        input:
+        \lstinputlisting{../result/3_1_in_train-0.txt}
+
+        output:
+        \lstinputlisting{../result/3_1_out_train-0.txt}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.65\linewidth]{../result/3_1-trial-40epoch.png}
+            \caption{}
+        \end{figure}
+
+        测试模型：
+
+        input:
+        \lstinputlisting{../result/3_1_in_test.txt}
+
+        output:
+        \lstinputlisting{../result/3_1_out_test.txt}
     \vspace{2em}
 
 
@@ -346,7 +365,7 @@ if mode == "train" and augment:
         可见，随着卷积层数的增加，图像的不同特征不断被提取、分离、放大，在最后一张特征图中最为鲜明。
         \vspace{2em}
 
-        \item  t-SNE 可视化最后一层隐藏层的输出特征：
+        \item  t-SNE可视化最后一层隐藏层的输出特征：
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.65\linewidth]{../result/4_tsne.png}
@@ -362,6 +381,8 @@ if mode == "train" and augment:
             \caption{}
         \end{figure}
 
+        可见，经过STN后，图像数据产生了一些细微的变换，在提高数据多样性的同时保证其特征没有受到过大影响，从而增加了整体网络的泛化能力。
+
     \end{enumerate}
 
     
@@ -372,10 +393,12 @@ if mode == "train" and augment:
 
 \section{遇到的问题及解决方法}
     \begin{enumerate}
-        \item 
+        \item 没有明白stn网络是如何构建的，完全面向官方文档编程，但也没有太搞明白一些参数是怎么设置的。
+        \item 本次的模型训练中，默认设置的网络识别准确率极高，导致后面进行数据增广和stn网络训练后准确率不增反掉，寻找合适的增广变换和对stn的调整花费了很多时间。
     \end{enumerate}
 
 \section{建议}
+希望可以大概讲一下各个参数设置的业界习惯之类的，不然感觉自己敲出来的代码看上去非常外行。
 
 
 

@@ -59,6 +59,7 @@ def get_data_loader(
         data_transforms.append(transforms.RandomRotation(10))
         data_transforms.append(transforms.RandomPerspective(0.2))
         # data_transforms.append(transforms.AutoAugment())
+        # data_transforms.append(transforms.RandomAdjustSharpness(2))
 
 # perspective & rotation because of perspective, 
 # no color change or flip because of the message may change

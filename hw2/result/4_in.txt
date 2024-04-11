@@ -12,4 +12,4 @@ python visualize.py --type feature --ckpt_path checkpoints/bn --layer_idx 4 --im
 
 python visualize.py --type tsne --ckpt_path checkpoints/bn
 
-python visualize.py --type stn --ckpt_path checkpoints/stn
+python visualize.py --type stn --ckpt_path checkpoints/stn_trial --epoch 39

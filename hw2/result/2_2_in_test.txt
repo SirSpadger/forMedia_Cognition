@@ -1,1 +1,1 @@
-python test.py --ckpt_path checkpoints/bn_aug --epoch 13
+python test.py --ckpt_path checkpoints/bn_aug --epoch 12

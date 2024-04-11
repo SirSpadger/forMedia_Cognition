@@ -206,8 +206,8 @@ class STN(nn.Module):
         # this network.
         # Suggested structure: 3 down-sampling convolutional layers with doubling output channels, using BN and ReLU.
         self.localization_conv = nn.Sequential(
-            ConvBlock(in_channels=in_channels, out_channels=8, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False), 
-            ConvBlock(in_channels=8, out_channels=16, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False), 
+            ConvBlock(in_channels=in_channels, out_channels=8, kernel_size=9, stride=2, padding=4, use_batch_norm=True, use_residual=False), 
+            ConvBlock(in_channels=8, out_channels=16, kernel_size=7, stride=2, padding=3, use_batch_norm=True, use_residual=False), 
             ConvBlock(in_channels=16, out_channels=32, kernel_size=3, stride=2, padding=1, use_batch_norm=True, use_residual=False)
         )
         # 3 * 32 *32 -> 8 * 16 * 16 -> 16 * 8 * 8 -> 32 * 4 * 4
