@@ -30,7 +30,7 @@ def preprocess(pre_conv, data_root, image_size, classes):
     data_mean, u = PCA(train_data, 2)
 
     # TODO: using PCA to compress the dimensionality of the train_data after subtracting the mean vector
-    train_data_pca = (train_data - data_mean) @ u
+    train_data_pca = (train_data - data_mean.repeat(train_data.size(0), 1)) @ u
     # N * 2 = N * 2048 @ 2048 * 2
 
     visualize(train_data_pca, train_label, "train")
@@ -42,7 +42,11 @@ def preprocess(pre_conv, data_root, image_size, classes):
     val_data, val_label = loaddata(pre_conv, data_root, 'val', image_size, classes)
 
     # TODO: using PCA to compress the dimensionality of the val_data after subtracting the mean vector
-    val_data_pca = (val_data - data_mean) @ u
+
+    print(val_data.size())
+    print(u.size)
+
+    val_data_pca = (val_data - data_mean.repeat(val_data.size(0), 1)) @ u
     # N * 2 = N * 2048 @ 2048 * 2
 
     visualize(val_data_pca, val_label, "val")
@@ -54,7 +58,7 @@ def preprocess(pre_conv, data_root, image_size, classes):
     test_data, test_label = loaddata(pre_conv, data_root, 'test', image_size, classes)
 
     # TODO: using PCA to compress the dimensionality of the test_data after subtracting the mean vector
-    test_data_pca = (test_data - data_mean) @ u
+    test_data_pca = (test_data - data_mean.repeat(test_data.size(0), 1)) @ u
     # N * 2 = N * 2048 @ 2048 * 2
 
     visualize(test_data_pca, test_label, "test")
@@ -99,10 +103,15 @@ def PCA(data, dim=2):
     # TODO 2: complete the algorithm of PCA, calculate the mean value of the data and the projection matrix
 
     # TODO: compute the mean of train_data
-    data_mean = torch.mean(data, dim=0, keepdim=True).unsqueeze(0).repeat(data.size(0), 1, 1) # shape: N * 2048
+    data_mean = torch.mean(data, dim=0, keepdim=True) # shape: N * 2048
     # TODO: compute the covariance matrix of train_data
     # data_cov = torch.cov(data) # shape: 2048 * 2048
-    data_cov = (data - data_mean) @ (data - data_mean).t()
+
+    # print(torch.mean(data, dim=0, keepdim=True).size())
+    # print(data.size())
+    # print(data_mean.size())
+
+    data_cov = (data - data_mean.repeat(data.size(0), 1)).T @ (data - data_mean)
 
     # data_zeromean = data - data_mean
     # for i in range(data.size(0)):

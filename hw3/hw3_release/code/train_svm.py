@@ -82,18 +82,18 @@ def train(
 
         # TODO: get a batch of data; you may need enumerate() to iteratively get data from 'train_loader'.
         # you can refer to previous homework, for example hw2
-        for step, (input, labels) in enumerate(train_loader):
+        for step, (input, label) in enumerate(train_loader):
             # TODO: set data type (.float()) and device (.to())
             input, labels = (
                 input.type(torch.float).to(device),
-                labels.type(torch.float).to(device),
+                label.type(torch.float).to(device),
             )
 
             # TODO: clear gradients in the optimizer
             optimizer.zero_grad()
 
             # TODO: run the model with hinge loss; the model needs two inputs: feas and labels
-            out, loss = svm(input, labels)
+            out, loss = svm(input, label)
 
             # TODO: back-propagation on the computation graph
             loss.backward()
@@ -105,10 +105,10 @@ def train(
             optimizer.step()
 
             # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-            n_correct += torch.nn.functional.relu(torch.flatten(out) * torch.flatten(labels))
+            n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
 
             # TODO: sum up the total image number
-            n_feas += len(labels)
+            n_feas += 1
 
         # average of the total loss for iterations
         acc = 100 * n_correct / n_feas
@@ -128,11 +128,11 @@ def train(
 
         with torch.no_grad():  # we do not need to compute gradients during validation
             # TODO: inference on the validation dataset, similar to the training stage but use 'val_loader'.
-            for input, labels in val_loader:
+            for input, label in val_loader:
                 # TODO: set data type (.float()) and device (.to())
-                input, labels = (
+                input, label = (
                 input.type(torch.float).to(device),
-                labels.type(torch.float).to(device),
+                label.type(torch.float).to(device),
                 )
 
                 # TODO: run the model; at the validation step, the model only needs one input: feas
@@ -140,10 +140,10 @@ def train(
                 out= svm(input)
 
                 # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-                n_correct += torch.nn.functional.relu(torch.flatten(out) * torch.flatten(labels))
+                n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
 
                 # TODO: sum up the total image number
-                n_feas += len(labels)
+                n_feas += 1
 
         # show prediction accuracy
         acc = 100 * n_correct / n_feas

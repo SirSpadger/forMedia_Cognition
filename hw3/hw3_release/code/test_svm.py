@@ -10,6 +10,7 @@
 
 # ==== Part 1: import libs
 import argparse
+
 import torch
 from datasets import Traffic_Dataset
 from svm_hw import SVM_HINGE
@@ -33,25 +34,28 @@ def test(
     # TODO 1: =================== load the pretrained SVM model ==================================
 
     # TODO: construct testing data loader with 'Traffic_Dataset' and DataLoader, and set 'batch_size=1' and 'shuffle=False'
-    test_data = ???
-    test_loader = ???
+    test_data = Traffic_Dataset(data_root=data_root)
+    test_loader = DataLoader(test_data, batch_size=1)
 
     # TODO: load state dictionary of pretrained SVM model
-    model_svm = ???
+    model_svm = torch.load(model_save_path, map_location=device)
 
     # TODO: initialize the SVM model using 'model_svm["configs"]["feature_channel"]' and 'model_svm["configs"]["C"]'
-    svm = ???
+    svm = SVM_HINGE(
+        in_channels=model_svm["configs"]["feature_channel"], 
+        C=model_svm["configs"]["C"]
+    )
 
     # TODO: load model parameters (model_svm['state_dict']) we saved in model_path using svm.load_state_dict()
-    ???
+    svm.load_state_dict(model_svm["state_dict"])
 
     # TODO: put the model on CPU or GPU
-    ???
+    svm = svm.to(device)
 
     # TODO 2 : ================================ testing ==============================================
 
     # TODO: set the model in evaluation mode
-    ???
+    svm.eval()
 
     # to calculate and save the testing accuracy
     n_correct = 0.  # number of images that are correctly classified
@@ -59,19 +63,22 @@ def test(
 
     with torch.no_grad():  # we do not need to compute gradients during validation
         # TODO: inference on the testing dataset, similar to the training stage but use 'test_loader'.
-        for ??? in ???:
+        for input, label in test_loader:
             # TODO: set data type (.float()) and device (.to())
-            ???
+            input, label = (
+            input.type(torch.float).to(device),
+            label.type(torch.float).to(device),
+            )
 
             # TODO: run the model; at the validation step, the model only needs one input: feas
             # _ refers to a placeholder, which means we do not need the second returned value during validating
-            ???
+            out = svm(input)
 
             # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-            n_correct += ???
+            n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
 
             # TODO:sum up the total image number
-            n_feas += ???
+            n_feas += 1
 
     # show prediction accuracy
     acc = 100 * n_correct / n_feas
