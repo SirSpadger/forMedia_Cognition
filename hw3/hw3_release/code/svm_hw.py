@@ -34,7 +34,7 @@ class LinearFunction(torch.autograd.Function):
         '''
 
         # TODO
-        y = torch.tensor(x, dtype=torch.float64) @ torch.tensor(W, dtype=torch.float64).t() + b
+        y = torch.tensor(x, dtype=torch.float64) @ torch.tensor(W, dtype=torch.float64).T + b
         ctx.save_for_backward(x, W)
 
         return y
@@ -59,8 +59,8 @@ class LinearFunction(torch.autograd.Function):
         # you can use torch.matmul(A, B) to compute matrix product of A and B
 
         # TODO
-        grad_input = torch.matmul(grad_output, W)
-        grad_W = torch.matmul(grad_output.T, x)
+        grad_input = torch.matmul(torch.tensor(grad_output, dtype=torch.float64), torch.tensor(W, dtype=torch.float64))
+        grad_W = torch.matmul(torch.tensor(grad_output.T, dtype=torch.float64), torch.tensor(x, dtype=torch.float64))
         grad_b = grad_output.sum(0) # adds directly since there is no activation func
 
         return grad_input, grad_W, grad_b
@@ -85,7 +85,7 @@ class Hinge(torch.autograd.Function):
 
         # TODO: compute the hinge loss (together with L2 norm for SVM): loss = 0.5*||w||^2 + C*\sum_i{max(0, 1 - y_i*output_i)}
         # you may need F.relu() to implement the max() function.
-        loss = 0.5 * (W @ W.t()) + C * torch.reshape(F.relu(torch.ones(output.size()) - torch.reshape(label, (output.size(0), -1)) * output).sum(0), (1, 1))
+        loss = 0.5 * (W @ W.T) + C * torch.reshape(F.relu(torch.ones(output.size()) - torch.reshape(label, (output.size(0), -1)) * output).sum(0), (1, 1))
         # 1*1 = 1*input_size @ input_size*1 + reshape((batch_size*1).sum(0), (1, 1))
 
         ctx.save_for_backward(output, W, label, C)
@@ -104,7 +104,7 @@ class Hinge(torch.autograd.Function):
         """
         output, W, label, C = ctx.saved_tensors
         # TODO: compute the grad with respect to the output of the linear function and W: dL/doutput, dL/dW
-        grad_W = torch.matmul(grad_loss, W)
+        grad_W = torch.tensor(grad_loss, dtype=torch.float64) @ torch.tensor(W, dtype=torch.float64)
         # 1*channels = 1*1 @ 1*input_size
 
         grad_output = torch.matmul(-C * torch.heaviside(torch.ones(output.size(), dtype=torch.float64) - torch.reshape(label, (output.size(0), -1)) * output, torch.ones(output.size(), dtype=torch.float64)) * torch.reshape(label, (output.size(0), -1)), grad_loss)
@@ -115,7 +115,6 @@ class Hinge(torch.autograd.Function):
 
 # TODO 3: complete the structure of SVM model
 class SVM_HINGE(nn.Module):
-
     def __init__(self, in_channels, C):
         """
         :param in_channels: number of feature channels for SVM input
@@ -130,8 +129,11 @@ class SVM_HINGE(nn.Module):
             please use torch.randn() to initialize W and b
         """
 
-        self.W = torch.tensor(torch.rand(1, in_channels), requires_grad=True)
-        self.b = torch.tensor(torch.rand(1), requires_grad=True)
+        W = torch.randn(1, in_channels).float()
+        b = torch.rand(1).float()
+        self.W = nn.Parameter(W, requires_grad=True)
+        self.b = nn.Parameter(b, requires_grad=True)
+        
         self.C = torch.tensor([[C]], requires_grad=False)
 
     def forward(self, x, label=None):

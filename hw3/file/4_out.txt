@@ -1,0 +1,5 @@
+Test accuracy = 50.0%
+
+Test accuracy = 88.3%
+
+Test accuracy = 100.0%

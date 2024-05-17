@@ -10,10 +10,12 @@
 
 # ==== Part 1: import libs
 import argparse
-import matplotlib.pyplot as plt
-import torch
-import numpy as np
+import os
 import random
+
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
 from datasets import Traffic_Dataset
 from svm_hw import SVM_HINGE
 from torch.utils.data import DataLoader
@@ -44,10 +46,10 @@ def train(
     """
 
     # TODO 1: construct training and validation data loader with 'Traffic_Dataset' and DataLoader, and set proper values for 'batch_size' and 'shuffle'
-    train_data = Traffic_Dataset(data_root=data_root)
-    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=2)
-    val_data = Traffic_Dataset(data_root=data_root)
-    val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=False, num_workers=2)
+    train_data = Traffic_Dataset(os.path.join(data_root, "train.pt"))
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+    val_data = Traffic_Dataset(os.path.join(data_root, "val.pt"))
+    val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=False)
 
     # scale the regularization coefficient
     C = C * len(train_loader)
@@ -56,7 +58,7 @@ def train(
     svm = SVM_HINGE(in_channels=feature_channel, C=C)
 
     # TODO: put the model on CPU or GPU
-    svm.to(device)
+    svm = svm.to(device)
 
     # TODO: define the Adam optimizer
     optimizer = torch.optim.Adam(svm.parameters(), lr)
@@ -82,18 +84,18 @@ def train(
 
         # TODO: get a batch of data; you may need enumerate() to iteratively get data from 'train_loader'.
         # you can refer to previous homework, for example hw2
-        for step, (input, label) in enumerate(train_loader):
+        for step, (input, labels) in enumerate(train_loader):
             # TODO: set data type (.float()) and device (.to())
             input, labels = (
                 input.type(torch.float).to(device),
-                label.type(torch.float).to(device),
+                labels.type(torch.float).to(device),
             )
 
             # TODO: clear gradients in the optimizer
             optimizer.zero_grad()
 
             # TODO: run the model with hinge loss; the model needs two inputs: feas and labels
-            out, loss = svm(input, label)
+            out, loss = svm(input, labels)
 
             # TODO: back-propagation on the computation graph
             loss.backward()
@@ -105,15 +107,15 @@ def train(
             optimizer.step()
 
             # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-            n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
+            n_correct += (out.reshape_as(labels) == labels).sum().item()
 
             # TODO: sum up the total image number
-            n_feas += 1
+            n_feas += labels.numel()
 
         # average of the total loss for iterations
         acc = 100 * n_correct / n_feas
         avg_loss = total_loss / len(train_loader)
-        train_acc.append(acc.cpu().numpy())
+        train_acc.append(acc)
         train_loss.append(avg_loss)
         print('Epoch {:02d}: loss = {:.3f}, training accuracy = {:.1f}%'.format(epoch + 1, avg_loss, acc))
 
@@ -128,27 +130,27 @@ def train(
 
         with torch.no_grad():  # we do not need to compute gradients during validation
             # TODO: inference on the validation dataset, similar to the training stage but use 'val_loader'.
-            for input, label in val_loader:
+            for input, labels in val_loader:
                 # TODO: set data type (.float()) and device (.to())
-                input, label = (
+                input, labels = (
                 input.type(torch.float).to(device),
-                label.type(torch.float).to(device),
+                labels.type(torch.float).to(device),
                 )
 
                 # TODO: run the model; at the validation step, the model only needs one input: feas
                 # _ refers to a placeholder, which means we do not need the second returned value during validating
-                out= svm(input)
+                out, _ = svm(input)
 
                 # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-                n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
+                n_correct += (out.reshape_as(labels) == labels).sum().item()
 
                 # TODO: sum up the total image number
-                n_feas += 1
+                n_feas += labels.numel()
 
         # show prediction accuracy
         acc = 100 * n_correct / n_feas
         print('Epoch {:02d}: validation accuracy = {:.1f}%'.format(epoch + 1, acc))
-        val_acc.append(acc.cpu().numpy())
+        val_acc.append(acc)
 
     # save model parameters in a file
     torch.save({'state_dict': svm.state_dict(),
@@ -164,8 +166,19 @@ def train(
     # TODO 4: calculate the index of support vectors in training samples using 'train_data.datas' and 'train_data.labels'
     # 'sv' should be a list in python structure with the shape of [K], where K is the number of support vectors.
     sv = []
-    for index in range(train_data.datas):
-        sv.append(index) if (svm.W.data > 0)
+
+    # print(train_data.datas.size())
+    # print(train_data.labels.size())
+
+    for index, (data, label) in enumerate(zip(train_data.datas, train_data.labels)):
+
+        # print(W)
+        # print(data)
+        # print(b.size())
+        # print(label * (data @ W.T + b).size())
+
+        if (label * (data @ W.T + b) <= 1):
+            sv.append(index) 
 
     plot(train_loss, train_acc, val_acc, epochs)
     plot_feature(train_features=train_data.datas, val_features=val_data.datas, train_labels=train_data.labels,

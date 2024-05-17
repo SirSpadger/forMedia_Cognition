@@ -1,0 +1,101 @@
+Epoch 01: loss = 1.591, training accuracy = 56.9%
+Epoch 01: validation accuracy = 55.0%
+Epoch 02: loss = 1.457, training accuracy = 56.9%
+Epoch 02: validation accuracy = 55.0%
+Epoch 03: loss = 1.332, training accuracy = 56.9%
+Epoch 03: validation accuracy = 52.5%
+Epoch 04: loss = 1.214, training accuracy = 57.5%
+Epoch 04: validation accuracy = 52.5%
+Epoch 05: loss = 1.105, training accuracy = 57.5%
+Epoch 05: validation accuracy = 52.5%
+Epoch 06: loss = 1.005, training accuracy = 58.1%
+Epoch 06: validation accuracy = 52.5%
+Epoch 07: loss = 0.913, training accuracy = 58.1%
+Epoch 07: validation accuracy = 52.5%
+Epoch 08: loss = 0.828, training accuracy = 58.8%
+Epoch 08: validation accuracy = 52.5%
+Epoch 09: loss = 0.752, training accuracy = 58.1%
+Epoch 09: validation accuracy = 52.5%
+Epoch 10: loss = 0.682, training accuracy = 58.8%
+Epoch 10: validation accuracy = 52.5%
+Epoch 11: loss = 0.620, training accuracy = 59.4%
+Epoch 11: validation accuracy = 55.0%
+Epoch 12: loss = 0.563, training accuracy = 60.0%
+Epoch 12: validation accuracy = 55.0%
+Epoch 13: loss = 0.513, training accuracy = 60.6%
+Epoch 13: validation accuracy = 55.0%
+Epoch 14: loss = 0.467, training accuracy = 60.0%
+Epoch 14: validation accuracy = 55.0%
+Epoch 15: loss = 0.426, training accuracy = 61.2%
+Epoch 15: validation accuracy = 55.0%
+Epoch 16: loss = 0.391, training accuracy = 61.9%
+Epoch 16: validation accuracy = 55.0%
+Epoch 17: loss = 0.358, training accuracy = 63.1%
+Epoch 17: validation accuracy = 55.0%
+Epoch 18: loss = 0.330, training accuracy = 63.8%
+Epoch 18: validation accuracy = 55.0%
+Epoch 19: loss = 0.305, training accuracy = 65.6%
+Epoch 19: validation accuracy = 55.0%
+Epoch 20: loss = 0.283, training accuracy = 66.9%
+Epoch 20: validation accuracy = 55.0%
+Epoch 21: loss = 0.264, training accuracy = 68.1%
+Epoch 21: validation accuracy = 55.0%
+Epoch 22: loss = 0.247, training accuracy = 68.8%
+Epoch 22: validation accuracy = 55.0%
+Epoch 23: loss = 0.233, training accuracy = 70.0%
+Epoch 23: validation accuracy = 55.0%
+Epoch 24: loss = 0.221, training accuracy = 70.6%
+Epoch 24: validation accuracy = 55.0%
+Epoch 25: loss = 0.210, training accuracy = 71.2%
+Epoch 25: validation accuracy = 55.0%
+Epoch 26: loss = 0.201, training accuracy = 71.9%
+Epoch 26: validation accuracy = 57.5%
+Epoch 27: loss = 0.193, training accuracy = 73.1%
+Epoch 27: validation accuracy = 57.5%
+Epoch 28: loss = 0.187, training accuracy = 73.8%
+Epoch 28: validation accuracy = 62.5%
+Epoch 29: loss = 0.181, training accuracy = 74.4%
+Epoch 29: validation accuracy = 65.0%
+Epoch 30: loss = 0.177, training accuracy = 73.1%
+Epoch 30: validation accuracy = 72.5%
+Epoch 31: loss = 0.173, training accuracy = 75.6%
+Epoch 31: validation accuracy = 77.5%
+Epoch 32: loss = 0.169, training accuracy = 74.4%
+Epoch 32: validation accuracy = 77.5%
+Epoch 33: loss = 0.167, training accuracy = 77.5%
+Epoch 33: validation accuracy = 82.5%
+Epoch 34: loss = 0.165, training accuracy = 76.9%
+Epoch 34: validation accuracy = 82.5%
+Epoch 35: loss = 0.163, training accuracy = 78.1%
+Epoch 35: validation accuracy = 82.5%
+Epoch 36: loss = 0.161, training accuracy = 78.1%
+Epoch 36: validation accuracy = 85.0%
+Epoch 37: loss = 0.160, training accuracy = 80.0%
+Epoch 37: validation accuracy = 87.5%
+Epoch 38: loss = 0.159, training accuracy = 81.9%
+Epoch 38: validation accuracy = 87.5%
+Epoch 39: loss = 0.158, training accuracy = 80.6%
+Epoch 39: validation accuracy = 87.5%
+Epoch 40: loss = 0.158, training accuracy = 82.5%
+Epoch 40: validation accuracy = 87.5%
+Epoch 41: loss = 0.157, training accuracy = 84.4%
+Epoch 41: validation accuracy = 87.5%
+Epoch 42: loss = 0.157, training accuracy = 89.4%
+Epoch 42: validation accuracy = 87.5%
+Epoch 43: loss = 0.157, training accuracy = 86.9%
+Epoch 43: validation accuracy = 87.5%
+Epoch 44: loss = 0.156, training accuracy = 85.6%
+Epoch 44: validation accuracy = 87.5%
+Epoch 45: loss = 0.156, training accuracy = 88.1%
+Epoch 45: validation accuracy = 87.5%
+Epoch 46: loss = 0.156, training accuracy = 90.6%
+Epoch 46: validation accuracy = 87.5%
+Epoch 47: loss = 0.156, training accuracy = 90.6%
+Epoch 47: validation accuracy = 87.5%
+Epoch 48: loss = 0.156, training accuracy = 86.9%
+Epoch 48: validation accuracy = 82.5%
+Epoch 49: loss = 0.156, training accuracy = 90.0%
+Epoch 49: validation accuracy = 82.5%
+Epoch 50: loss = 0.156, training accuracy = 93.8%
+Epoch 50: validation accuracy = 87.5%
+Model saved in checkpoints/svm.pth

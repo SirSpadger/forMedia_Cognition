@@ -10,6 +10,7 @@
 
 # ==== Part 1: import libs
 import argparse
+import os
 
 import torch
 from datasets import Traffic_Dataset
@@ -34,7 +35,7 @@ def test(
     # TODO 1: =================== load the pretrained SVM model ==================================
 
     # TODO: construct testing data loader with 'Traffic_Dataset' and DataLoader, and set 'batch_size=1' and 'shuffle=False'
-    test_data = Traffic_Dataset(data_root=data_root)
+    test_data = Traffic_Dataset(os.path.join(data_root, "test.pt"))
     test_loader = DataLoader(test_data, batch_size=1)
 
     # TODO: load state dictionary of pretrained SVM model
@@ -63,22 +64,22 @@ def test(
 
     with torch.no_grad():  # we do not need to compute gradients during validation
         # TODO: inference on the testing dataset, similar to the training stage but use 'test_loader'.
-        for input, label in test_loader:
+        for input, labels in test_loader:
             # TODO: set data type (.float()) and device (.to())
-            input, label = (
+            input, labels = (
             input.type(torch.float).to(device),
-            label.type(torch.float).to(device),
+            labels.type(torch.float).to(device),
             )
 
             # TODO: run the model; at the validation step, the model only needs one input: feas
             # _ refers to a placeholder, which means we do not need the second returned value during validating
-            out = svm(input)
+            out, _ = svm(input)
 
             # TODO: sum up the number of images correctly recognized. note the shapes of 'out' and 'labels' are different
-            n_correct += (1 if (out == label.squeeze(dim=0)) else 0)
+            n_correct += (out.reshape_as(labels) == labels).sum().item()
 
             # TODO:sum up the total image number
-            n_feas += 1
+            n_feas += labels.numel()
 
     # show prediction accuracy
     acc = 100 * n_correct / n_feas

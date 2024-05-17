@@ -1,0 +1,8 @@
+python train_svm.py --C 1e-6
+python test_svm.py
+
+python train_svm.py --C 1e-3
+python test_svm.py
+
+python train_svm.py --C 1
+python test_svm.py
