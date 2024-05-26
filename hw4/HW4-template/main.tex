@@ -1,0 +1,100 @@
+% Homework template for Inference and Information
+% UPDATE: September 26, 2017 by Xiangxiang
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{moreenum}
+\usepackage{mathtools}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 别问为什么，加上这个
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不现实了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{magenta},
+    commentstyle    =   \color{red}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+\usepackage{subcaption}
+\usepackage{booktabs} % toprule
+\usepackage[mathcal]{eucal}
+\usepackage[thehwcnt = 4]{iidef}
+
+\thecourseinstitute{清华大学电子工程系}
+\thecoursename{\textbf{媒体与认知}}
+\theterm{2023-2024学年春季学期}
+\hwname{作业}
+\begin{document}
+\courseheader
+\name{YOUR NAME}
+\vspace{3mm}
+\centerline{\textbf{\Large{理论部分}}}
+
+\section{单选题（15分）}
+\subsection{\underline{?}}
+
+\subsection{\underline{?}}
+
+\subsection{\underline{?}}
+
+\subsection{\underline{?}}
+
+\subsection{\underline{?}}
+
+\section{计算题（15 分）}
+% 计算题1
+\subsection{隐含马尔可夫模型}
+
+\hspace{2em}暑假中，小E每天进行一项体育活动，包括跑步（R）、游泳（S）和打球（B），所选择的体育活动受某种潜在因素（如心情）的影响。小E每天把进行体育活动的照片发至微信朋友圈，我们可以根据观测信息推测该潜在因素的状态。
+
+\hspace{2em}假设该潜在因素分为$S_1$和$S_2$两种状态。在$S_1$时，小E选择三种体育活动的概率分别为0.6，0.2，0.2；在$S_2$时，小E选择三种体育活动的概率分别为0.1，0.6，0.3。
+
+\hspace{2em}该潜在因素的变化也有一定规律，若某天处于$S_1$的状态，第二天处于$S_1$和$S_2$的状态的概率分别为0.5，0.5；若某天处于$S_2$的状态，第二天处于$S_1$和$S_2$的状态的概率分别为0.6，0.4。
+
+\hspace{2em}暑假第一天处于$S_1$和$S_2$的状态的概率均为0.5。
+
+\vspace{3mm}
+(1) 采用隐含马尔可夫模型(HMM)对小E暑假体育活动安排进行建模，{\color{blue}请写出HMM对应的参数$\lambda=\{\pi, A, B\}$}。
+
+\vspace{3mm}
+(2) 假设暑假第1、2、3天小E所进行的体育活动依次为跑步（R）、打球（B）和游泳（S），{\color{blue}请计算出现该观测序列的概率}。
+
+\vspace{3mm}
+(3) 在(2)的条件下。{\color{blue}请利用Viterbi算法推测暑假第1、2、3天最可能的隐含状态序列}。
+
+
+% 请根据是否选择自选课题的情况选择“编程作业报告”或“自选课题开题报告”中的一项完成
+\section{编程作业报告}
+\section{自选课题工作进度汇报}
+
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: late\rvx
+%%% TeX-master: t
+%%% End:
