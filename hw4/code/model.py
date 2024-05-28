@@ -2,8 +2,8 @@
 #             Media and Cognition
 #             Homework 4  Sequence Modeling
 #             model.py - Model definition
-#             Student ID:
-#             Name:
+#             Student ID: 2022010608
+#             Name: Bi Jiayi
 #             Tsinghua University
 #             (C) Copyright 2024
 # ========================================================
@@ -12,10 +12,11 @@
 # Import required libraries
 ############################################################
 import math
-import torch
-import torch.nn as nn 
-from torch.nn import functional as F
+
 import numpy as np
+import torch
+import torch.nn as nn
+from torch.nn import functional as F
 
 ############################################################
 
@@ -60,54 +61,55 @@ class SelfAttention(nn.Module):
         # Step 1.1: obtain q, k, v via self.q_layer(), self.k_layer(), self.v_layer() respectively.
         # the shape of q, k, v: (batch_size, seq_len, num_heads * head_dim)
         # num_heads denotes the number of heads in multi-head attention, head_dim denotes the dimension of each head
-        q = ???
-        k = ???
-        v = ???
+        q = self.q_layer(x)
+        k = self.k_layer(x)
+        v = self.v_layer(x)
 
         # Step 1.2: in order to calculate multi-head attention in parallel, reshape q, k, v first.
         # first use `Tensor.reshape()` to reshape q, k, v to: (batch_size, seq_len, num_heads, head_dim)
-        q = ???
-        k = ???
-        v = ???
+        q = torch.reshape(q, (batch_size, seq_len, self.num_head, self.head_dim))
+        k = torch.reshape(k, (batch_size, seq_len, self.num_head, self.head_dim))
+        v = torch.reshape(v, (batch_size, seq_len, self.num_head, self.head_dim))
 
         # then use `Tensor.transpose()` or `Tensor.permute()` to exchange the dim of q, k, v for matrix multiplication
         # the shape of q, k, v from (batch_size, seq_len, num_heads, head_dim) to (batch_size, num_heads, seq_len, head_dim)
-        q = ???
-        k = ???
-        v = ???
+        q = torch.transpose(q, dim0=1, dim1=2)
+        k = torch.transpose(k, dim0=1, dim1=2)
+        v = torch.transpose(v, dim0=1, dim1=2)
 
         # Step 1.3: calculate multi-head attention in parallel: Attention(q, k, v) = softmax(qk^T / sqrt(head_dim)) v
         # Step 1.3.1: do matrix multiplication via `torch.matmul()`: attn = qk^T / sqrt(head_dim)
         # the shape of `attn`: (batch_size, num_heads, seq_len, seq_len)
-        attn = ???
+        attn = torch.matmul(q, k.transpose(2, 3)) / torch.sqrt(torch.tensor(self.head_dim))
         
         # Step 1.3.2: for Auto-Regressive Language Model, the predictions for position i can depend only on the input at positions less than i.
         # Therefore, a mask is used to prevent positions from attending to subsequent positions
         # attn_mask = (0,1,...,1; 0,0,1,...,0; ...; 0,...,0) is a upper triangular matrix with shape (seq_len, seq_len)
         # Hint:
         # use torch.ones(?, device=x.device) to generate a matrix filled with value 1 with shape (seq_len, seq_len)
-        attn_mask = ???
+        attn_mask = torch.ones(seq_len, seq_len, device=x.device)
         # use torch.triu(?, diagonal=1) to obtain a upper triangular matrix where elements on the main diagonal are 0
-        attn_mask = ???
+        attn_mask = torch.triu(attn_mask, diagonal=1)
         # use Tensor.bool() to convert the matrix to a boolean matrix
-        attn_mask = ???
+        attn_mask = attn_mask.bool()
         # fill the position of `attn` where `attn_mask==True` with value `float('-inf')` via `Tensor.masked_fill()`
-        attn = ???
+        attn = attn.masked_fill(attn_mask, float('-inf'))
 
         # Step 1.3.3: normalize `attn` via softmax funtion: attn = Softmax(attn) = Softmax(qk^T / sqrt(head_dim))
-        attn = ???
+        attn = F.softmax(attn, dim=3)
         # Step 1.3.4: apply dropout to `attn` via self.attn_drop()
-        attn = ???
+        attn = self.attn_drop(attn)
         # Step 1.3.5: multiply v by `attn` via torch.matmul(): out = Attention(q, k, v) = attn v
         # the shape of `out`: (batch_size, num_heads, seq_len, head_dim)
-        out = ???
+        out = torch.matmul(attn, v)
+        # (batch_size, num_heads, seq_len, seq_len) @ (batch_size, num_heads, seq_len, head_dim)
 
         # Step 1.4: use `Tensor.transpose()` and `Tensor.reshape()' to concatenate output of different heads
         # the shape of `out` from (batch_size, num_heads, seq_len, head_dim) to (batch_size, seq_len, num_heads*head_dim)
-        out = ???
+        out = torch.reshape(torch.transpose(out, dim0=1, dim1=2), (batch_size, seq_len, -1))
 
         # Step 1.5: obtain the final results via self.proj_layer() and self.proj_drop(): result = Dropout(MultiHead(Q, K, V)) = Dropout(out W^O)
-        result = ??? 
+        result = self.proj_layer(self.proj_drop(out))
         # <<< TODO 1
 
         # return the final results `result` and attention weights `attn`
@@ -147,24 +149,24 @@ class TransformerLayer(nn.Module):
         # >>> TODO 2: complete the forward process of the TransformerLayer module.
         # Step 2.1: calculate the output of multi-head self-attention
         # normalize the input via `self.norm1()`: x_norm = LayerNorm(x)
-        x_norm = ???
+        x_norm = self.norm1(x)
 
         # calculate the output of multi-head self-attention via `self.attn()`: x_attn, attn = SelfAttention(x_norm)
-        x_attn, attn = ???
+        x_attn, attn = self.attn(x_norm)
 
         # add the input 'x' to the output of attention (x_attn) if self.no_res is False: x_attn = x + x_attn if no_res is False else x_attn
-        if ???:
-            x_attn = ???
+        if not self.no_res:
+            x_attn = x + x_attn
 
         # Step 2.2: calculate the output of feed forward network
         # calculate the output of feed forward network via `self.ffn()` and `self.norm2()`: x_ffn = FFN(LayerNorm(x_attn))
-        x_ffn = ???
+        x_ffn = self.ffn(self.norm2(x_attn))
 
         # add the output of attention (x_attn) to the output of feed forward network (x_ffn) if self.no_res is False: out = x_attn + x_ffn if no_res is False else x_ffn
-        if ???:
-            out = ???
+        if not self.no_res:
+            out = x_attn + x_ffn
         else:
-            out = ???
+            out = x_ffn
         # <<< TODO 2
         
         return out, attn
@@ -230,36 +232,36 @@ class GPT(nn.Module):
 
         # >>> TODO 3: complete the forward process of GPT
         # Step 3.1: use torch.arange(?, dtype=torch.long, device=word_idx.device) to generate the position sequence `pos` [0, 1, ..., seq_len-1] 
-        pos = ???
+        pos = torch.arange(0, seq_len, step=1, dtype=torch.long, device=word_idx.device)
 
         # Step 3.2: use self.word_token_embedding() and self.word_pos_embedding() to transfer `word_idx` and `pos` to embeddings ('token_embed` and `pos_embed`)
-        token_embed = ???
-        pos_embed = ???
+        token_embed = self.word_token_embedding(word_idx)
+        pos_embed = self.word_pos_embedding(pos)
 
         # Step 3.3: initialize the input embeddings `x` of transformer layers
         # add the token embeddings and position embeddings to obtain the input embeddings `x` if self.no_pos is False
-        if ???:
-            x = ???
+        if not self.no_pos:
+            x = token_embed + pos_embed
         else:
-            x = ???
+            x = token_embed
 
         # apply dropout to the input embeddings via `self.drop()`
-        x = ???
+        x = self.drop(x)
 
         # Step 3.4: use for loop to obtain the output and attention weights of multiple transformer layers
         # define a list `attention_weights` and append the attention weights of each transformer layer into the list
-        attention_weights = ??? 
-        for ???:
+        attention_weights = list()
+        for i in range(self.num_layer):
             # Step 4.1: obtain the output and attention weights of transformer layers
-            x, attn = ???
+            x, attn = self.transformer[i](x)
             # Step 4.2: append the attention weights of transformer layers into the list `attention_weights`
-            ???
+            attention_weights.append(attn)
      
         # Step 3.5: use self.norm() to normalize the output of transformer layers and then use self.language_model_head() to obtain the `logits` for prediction
         # self.language_model_head() is a linear layer defined in __init__() function
         # Note: do not add softmax here since it is included in the cross entropy loss function
-        x = ???
-        logits = ???
+        x = self.norm(x)
+        logits = self.language_model_head(x)
         # <<< TODO 3
 
         # return logits and loss or attention weights
