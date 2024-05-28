@@ -74,15 +74,15 @@
 \centerline{\textbf{\Large{理论部分}}}
 
 \section{单选题（15分）}
-\subsection{\underline{?}}
+\subsection{\underline{D}}
 
-\subsection{\underline{?}}
+\subsection{\underline{A}}
 
-\subsection{\underline{?}}
+\subsection{\underline{A}}
 
-\subsection{\underline{?}}
+\subsection{\underline{C}}
 
-\subsection{\underline{?}}
+\subsection{\underline{B}}
 
 \section{计算题（15 分）}
 % 计算题1
@@ -99,11 +99,75 @@
 \vspace{3mm}
 (1) 采用隐含马尔可夫模型(HMM)对小E暑假体育活动安排进行建模，{\color{blue}请写出HMM对应的参数$\lambda=\{\pi, A, B\}$}。
 
-\vspace{3mm}
-(2) 假设暑假第1、2、3天小E所进行的体育活动依次为跑步（R）、打球（B）和游泳（S），{\color{blue}请计算出现该观测序列的概率}。
+\begin{proof}[解]
+    有题意可知，初始概率分布为
+    \[\pi = \begin{bmatrix}
+        0.5\\0.5
+    \end{bmatrix}\]
 
-\vspace{3mm}
+    概率转移矩阵为
+    \[A = \begin{bmatrix}
+        0.5 & 0.5\\
+        0.6 & 0.4\\
+    \end{bmatrix}\]
+
+    观测结果概率矩阵为
+    \[B = \begin{bmatrix}
+        0.6 & 0.2 & 0.2\\
+        0.1 & 0.6 & 0.3
+    \end{bmatrix}\]
+\end{proof}
+
+(2) 假设暑假第1、2、3天小E所进行的体育活动依次为跑步（R）、打球（B）和游泳（S），{\color{blue}请计算出现该观测序列的概率}。
+\begin{proof}[解]
+    利用前向算法：
+    \begin{align*}
+        \alpha_1(S_1) & = \pi_1 B_{11} = 0.5 \times 0.6 = 0.3\\
+        \alpha_1(S_2) & = \pi_2 B_{21} = 0.5 \times 0.1 = 0.05\\
+        \alpha_2(S_1) & = (\alpha_1(S_1) A_{11} + \alpha_1(S_2) A_{21}) B_{13}\\
+        & = (0.3 \times 0.5 + 0.05 \times 0.6) \times 0.2 = 0.036 \\
+        \alpha_2(S_2) & = (\alpha_1(S_1) A_{12} + \alpha_1(S_2) A_{22}) B_{23} \\
+        & = (0.3 \times 0.5 + 0.05 \times 0.4) \times 0.3 = 0.051\\
+        \alpha_3(S_1) & = (\alpha_2(S_1) A_{11} + \alpha_2(S_2) A_{21}) B_{12} \\
+        & = (0.036 \times 0.5 + 0.051 \times 0.6) \times 0.2 = 0.00972\\
+        \alpha_3(S_2) & = (\alpha_2(S_1) A_{12} + \alpha_2(S_2) A_{22})B_{22} \\
+        & = (0.036 \times 0.5 + 0.051 \times 0.4) \times 0.6 = 0.02304\\
+        \therefore P(O \mid \lambda) & = \alpha_3(S_1) + \alpha_3(S_2) = 0.03276
+    \end{align*}
+\end{proof}
+
 (3) 在(2)的条件下。{\color{blue}请利用Viterbi算法推测暑假第1、2、3天最可能的隐含状态序列}。
+\begin{proof}[解]
+    由Viterbi算法：
+    \begin{align*}
+        \delta_1(1) & = \pi_1 B_{11} = 0.3 \\
+        \delta_1(2) & = \pi_2 B_{21} = 0.05 \\
+        \varphi_1(1) & = \varphi_1(2) = 0 \\
+        \\
+        \delta_2(1) & = \max\{\delta_1(1)A_{11}, \delta_1(2)A_{12}\}B_{13} \\
+            & = \max\{0.3 \times 0.5, 0.05 \times 0.5\} \times 0.2 = 0.03 \\
+        \delta_2(2) & = \max\{\delta_1(1)A_{21}, \delta_1(2)A_{22}\}B_{23} \\
+            & = \max\{0.3 \times 0.6, 0.05 \times 0.4\} \times 0.3 = 0.054 \\
+        \varphi_2(1) & = \arg \max\{\delta_1(1)A_{11}, \delta_1(2)A_{12}\} \\
+            & = \arg \max\{0.3 \times 0.5, 0.05 \times 0.5\} = 1 \\
+        \varphi_2(2) & = \arg \max\{\delta_1(1)A_{21}, \delta_1(2)A_{22}\} \\
+            & = \arg \max\{0.3 \times 0.6, 0.05 \times 0.4\} = 1 \\
+        \\
+        \delta_3(1) & = \max\{\delta_2(1)A_{11}, \delta_2(2)A_{12}\}B_{12} \\
+            & = \max\{0.03 \times 0.5, 0.054 \times 0.5\} \times 0.2 = 0.0054 \\
+        \delta_3(2) & = \max\{\delta_2(1)A_{21}, \delta_2(2)A_{22}\}B_{22} \\
+            & = \max\{0.03 \times 0.6, 0.054 \times 0.4\} \times 0.6 = 0.01296 \\
+        \varphi_3(1) & = \arg \max\{\delta_2(1)A_{11}, \delta_2(2)A_{12}\} \\
+            & = \arg \max\{0.03 \times 0.5, 0.054 \times 0.5\} = 2 \\
+        \varphi_3(2) & = \arg \max\{\delta_2(1)A_{21}, \delta_2(2)A_{22}\} \\
+            & = \arg \max\{0.03 \times 0.6, 0.054 \times 0.4\} = 2 \\
+        \\
+        q_3^* & = \arg \max\{\delta_3(1), \delta_3(2)\} = \arg\max\{0.0054, 0.01296\} = 1 \\
+        q_2^* & = \varphi_3(q_3^*) = \varphi_3(1) = 2 \\
+        q_1^* & = \varphi_2(q_2^*) = \varphi_2(2) = 1 \\
+        \therefore O^* & = \{1, 2, 1\} \\
+    \end{align*}
+\end{proof}
 
 
 % 请根据是否选择自选课题的情况选择“编程作业报告”或“自选课题开题报告”中的一项完成
@@ -161,7 +225,7 @@
     结果：
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.9\linewidth]{../img/2-1.png}
+        \includegraphics[width=0.8\linewidth]{../img/2-1.png}
     \end{figure}
 
     \lstinputlisting{../file/2-1-out.txt}
@@ -174,7 +238,7 @@
     结果：
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.9\linewidth]{../img/2-2.png}
+        \includegraphics[width=0.8\linewidth]{../img/2-2.png}
     \end{figure}
 
     \lstinputlisting{../file/2-2-out.txt}
