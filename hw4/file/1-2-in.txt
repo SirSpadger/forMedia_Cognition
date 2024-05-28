@@ -1,0 +1,2 @@
+python sample.py --ckpt_path workdirs/quansongci
+python sample.py --ckpt_path workdirs/quansongci --start +++清平乐

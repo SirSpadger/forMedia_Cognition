@@ -1,5 +1,3 @@
-% Homework template for Inference and Information
-% UPDATE: September 26, 2017 by Xiangxiang
 \documentclass[a4paper]{article}
 \usepackage{ctex}
 \usepackage{amsmath, amssymb, amsthm}
@@ -12,18 +10,34 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage{fontspec}
+\usepackage{xcolor}
+
+\usepackage{float}
+
+\definecolor{codekeyword}{RGB}{171, 0, 216}
+\definecolor{codetypename}{RGB}{29, 37, 251}
+\definecolor{codevariable}{RGB}{10, 23, 126}
+\definecolor{codestring}{RGB}{157, 0, 25}
+\definecolor{codecomment}{RGB}{31, 129, 19}
+\definecolor{codebackground}{RGB}{230 235 245}
+
+\newfontfamily\cascadia[Ligatures=ResetAll]{Cascadia Code}
+
 \lstset{
-    basicstyle          =   \sffamily,          % 基本代码风格
+    basicstyle          =   \footnotesize\cascadia,          % 基本代码风格
     keywordstyle        =   \bfseries,          % 关键字风格
     commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
     stringstyle         =   \ttfamily,  % 字符串风格
     flexiblecolumns,                % 别问为什么，加上这个
     numbers             =   left,   % 行号的位置在左边
     showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不现实了
-    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    numberstyle         =   \cascadia,    % 行号的样式，小五号，tt等宽字体
     showstringspaces    =   false,
     captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
-    frame               =   lrtb,   % 显示边框
+    backgroundcolor     =   \color{codebackground},
+    breaklines          =   true,
+    frame               =   l,
 }
 
 \lstdefinestyle{Python}{
@@ -41,7 +55,13 @@
 \usepackage{subcaption}
 \usepackage{booktabs} % toprule
 \usepackage[mathcal]{eucal}
-\usepackage[thehwcnt = 4]{iidef}
+\usepackage[thehwcnt = 2]{iidef}
+
+\usepackage{pdfpages}
+
+\setenumerate[1]{label=(\arabic{*})}
+\setenumerate[2]{label=\arabic{*})}
+
 
 \thecourseinstitute{清华大学电子工程系}
 \thecoursename{\textbf{媒体与认知}}
@@ -49,7 +69,7 @@
 \hwname{作业}
 \begin{document}
 \courseheader
-\name{YOUR NAME}
+\name{毕嘉仪}
 \vspace{3mm}
 \centerline{\textbf{\Large{理论部分}}}
 
@@ -88,7 +108,93 @@
 
 % 请根据是否选择自选课题的情况选择“编程作业报告”或“自选课题开题报告”中的一项完成
 \section{编程作业报告}
-\section{自选课题工作进度汇报}
+\subsection{模型的训练与测试}
+\begin{enumerate}
+    \item 数据预处理与模型训练
+    
+    输入：
+    \lstinputlisting{../file/1-1-in.txt}
+
+    输出：验证集上loss和perplexity的变化：
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{../img/1.png}
+    \end{figure}
+
+
+    \item 模型文本生成结果
+    
+    \begin{enumerate}
+        \item 默认配置以及指定生成文本
+        
+        分别输入：
+        \lstinputlisting{../file/1-2-in.txt}
+
+        输出分别为：
+        \lstinputlisting{../file/1-2-out.txt}
+
+        \item 生成质量较好的
+        
+        \begin{lstlisting}
++++卜算子（次韵）
+满梦断云偏如去。一夜月十百般诗，犹有长凄凉。
+望横台，当时疏影，休休留得。一枝一枕中却寻，看花满地。
+        \end{lstlisting}
+
+        \item 生成质量较差的
+        
+        \begin{lstlisting}
++++浣溪沙（送旅）
+花容事古平。闲恋山明千古秋光。空光明夜行秋风雨语，花影边青桃花。
+旧事何须能无计，愁情犹是留春又。春衫著情情情情。
+        \end{lstlisting}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{探究位置编码和残差连接在模型中的作用}
+\begin{enumerate}
+    \item 关闭位置编码
+    
+    分别输入：
+    \lstinputlisting{../file/2-1-in.txt}
+
+    结果：
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{../img/2-1.png}
+    \end{figure}
+
+    \lstinputlisting{../file/2-1-out.txt}
+    
+    \item 关闭残差连接的训练与测试命令
+    
+    分别输入：
+    \lstinputlisting{../file/2-2-in.txt}
+
+    结果：
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{../img/2-2.png}
+    \end{figure}
+
+    \lstinputlisting{../file/2-2-out.txt}
+\end{enumerate}
+
+可以看到验证集上loss和perplexity都高于默认配置且下降速率缓慢，生成结果也都远不如默认配置下的生成结果，no\_res模型甚至出现了严重胡言乱语行为。
+
+\subsection{可视化}
+可视化结果：
+\begin{figure}[H]
+    \centering
+        \begin{subfigure}[b]{.45\linewidth}
+            \includegraphics[width=\linewidth]{../img/3-1.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.5\linewidth}
+            \includegraphics[width=\linewidth]{../img/3-2.png}
+        \end{subfigure}
+\end{figure}
+
+许多的字的注意力系数在词牌上都达到较大值，可以看到模型主要是关联了词牌名与词面内容而进行生成，而没有针对词牌的格式与声韵或者句内逻辑进行联想。
 
 \end{document}
 

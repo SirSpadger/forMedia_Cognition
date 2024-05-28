@@ -1,0 +1,2 @@
+python train.py --ckpt_path workdirs/quansongci_no_pos --no_pos
+python sample.py --ckpt_path workdirs/quansongci_no_pos

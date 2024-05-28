@@ -1,0 +1,174 @@
+Initializing a new model from scratch
+training...
+iter 20: loss 7.3883, time 6838.28ms
+iter 20: val loss 7.2949
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 40: loss 6.3378, time 8591.23ms
+iter 40: val loss 6.5294
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 60: loss 6.4179, time 9320.03ms
+iter 60: val loss 6.4201
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 80: loss 6.4739, time 10122.45ms
+iter 80: val loss 6.4189
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 100: loss 6.4044, time 9792.37ms
+iter 100: val loss 6.4045
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 120: loss 6.4217, time 9859.65ms
+iter 120: val loss 6.3907
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 140: loss 6.3686, time 16412.45ms
+iter 140: val loss 6.3756
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 160: loss 6.3011, time 18431.66ms
+iter 160: val loss 6.3791
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 180: loss 6.3116, time 11289.99ms
+iter 180: val loss 6.3790
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 200: loss 6.3055, time 11922.76ms
+iter 200: val loss 6.3655
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 220: loss 6.1761, time 12220.20ms
+iter 220: val loss 6.3589
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 240: loss 6.3855, time 11270.43ms
+iter 240: val loss 6.3658
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 260: loss 6.2905, time 12309.79ms
+iter 260: val loss 6.3619
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 280: loss 6.4439, time 18212.53ms
+iter 280: val loss 6.3658
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 300: loss 6.3321, time 11516.21ms
+iter 300: val loss 6.3665
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 320: loss 6.1934, time 11335.12ms
+iter 320: val loss 6.3753
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 340: loss 6.2671, time 11144.21ms
+iter 340: val loss 6.3612
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 360: loss 6.4307, time 10821.01ms
+iter 360: val loss 6.3503
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 380: loss 6.2625, time 9804.74ms
+iter 380: val loss 6.3453
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 400: loss 6.4745, time 9922.69ms
+iter 400: val loss 6.3507
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 420: loss 6.3183, time 10269.62ms
+iter 420: val loss 6.3506
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 440: loss 6.3445, time 11350.01ms
+iter 440: val loss 6.3504
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 460: loss 6.3809, time 12080.91ms
+iter 460: val loss 6.3515
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 480: loss 6.2483, time 15947.79ms
+iter 480: val loss 6.3570
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 500: loss 6.2405, time 27278.72ms
+iter 500: val loss 6.3499
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 520: loss 6.3685, time 24779.76ms
+iter 520: val loss 6.3537
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 540: loss 6.3735, time 17864.50ms
+iter 540: val loss 6.3518
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 560: loss 6.3201, time 12659.25ms
+iter 560: val loss 6.3495
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 580: loss 6.2636, time 14029.58ms
+iter 580: val loss 6.3495
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 600: loss 6.3001, time 12489.42ms
+iter 600: val loss 6.3453
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 620: loss 6.4129, time 11138.38ms
+iter 620: val loss 6.3485
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 640: loss 6.2396, time 10245.21ms
+iter 640: val loss 6.3484
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 660: loss 6.3703, time 10926.70ms
+iter 660: val loss 6.3464
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 680: loss 6.2312, time 11035.90ms
+iter 680: val loss 6.3443
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 700: loss 6.3936, time 12605.89ms
+iter 700: val loss 6.3453
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 720: loss 6.2550, time 13905.59ms
+iter 720: val loss 6.3398
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 740: loss 6.3488, time 13117.21ms
+iter 740: val loss 6.3386
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 760: loss 6.3010, time 13217.47ms
+iter 760: val loss 6.3386
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 780: loss 6.3082, time 11860.20ms
+iter 780: val loss 6.3369
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 800: loss 6.3972, time 12711.89ms
+iter 800: val loss 6.3345
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 820: loss 6.2245, time 13300.86ms
+iter 820: val loss 6.3354
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 840: loss 6.2704, time 13192.67ms
+iter 840: val loss 6.3345
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 860: loss 6.2811, time 19302.22ms
+iter 860: val loss 6.3342
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 880: loss 6.3531, time 15265.48ms
+iter 880: val loss 6.3334
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 900: loss 6.3456, time 13468.40ms
+iter 900: val loss 6.3326
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 920: loss 6.3388, time 13142.42ms
+iter 920: val loss 6.3320
+saving latest checkpoint to workdirs/quansongci_no_res
+saving best checkpoint to workdirs/quansongci_no_res
+iter 940: loss 6.2598, time 11680.84ms
+iter 940: val loss 6.3328
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 960: loss 6.2457, time 11452.35ms
+iter 960: val loss 6.3332
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 980: loss 6.2909, time 11483.64ms
+iter 980: val loss 6.3325
+saving latest checkpoint to workdirs/quansongci_no_res
+iter 1000: loss 6.2472, time 11120.39ms
+iter 1000: val loss 6.3324
+saving latest checkpoint to workdirs/quansongci_no_res
+
