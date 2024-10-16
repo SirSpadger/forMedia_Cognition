@@ -1,10 +1,39 @@
 \documentclass[11pt, a4paper]{article}
 \usepackage[UTF8, heading=true]{ctex}
+\usepackage[dvipsnames, x11names]{xcolor}
 \usepackage{geometry}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{enumitem}
+\usepackage{listings}
+
+\newfontfamily\codefont{Cascadia Code}
+\definecolor{codebackground}{RGB}{230 235 245}
+
+\lstset{
+    basicstyle          =   \small\codefont,
+    % ---
+    tabsize             =   4,
+    showstringspaces    =   false,
+    numbers             =   left,
+    numberstyle         =   \codefont,
+    % ---
+    breaklines          =   true,
+    captionpos          =   t,      
+    % ---
+    frame               =   l,
+    flexiblecolumns,
+}
+
+\lstdefinestyle{python}{
+    language        =   Python, % 语言选Python
+    keywordstyle    =   \bfseries\color{blue},
+    % keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{orange!80!black},
+    commentstyle    =   \color{OliveGreen},
+    % identifierstyle =   \color{blue!80!white},
+    backgroundcolor =   \color{codebackground}
+}
 
 \geometry{a4paper, scale=0.8}
 
@@ -120,8 +149,9 @@
 
     \item 请根据你的结果分析模型是否出现了过拟合，如有，请在图像中指出在哪里出现了过拟合。如无，请给出你判断的原因.
     
-    通过训练/测试损失曲线以及测试准确率曲线可知，实验4的第2, 3部分均出现了过拟合现象，分别发生在epoch 35附近以及epoch 5附近。判断依据：训练损失持续降低，而测试损失不再降低甚至开始升高且出现巨幅振荡，测试准确率也不再增加。
-
+    通过训练/测试损失曲线以及测试准确率曲线可知，实验4的第3部分出现了过拟合现象，发生在epoch 35附近。判断依据：训练损失持续降低，而测试损失不再降低甚至开始升高且出现巨幅振荡，测试准确率也不再增加。
 \end{enumerate}
 
+\section*{程序源代码}
+\lstinputlisting[style=python]{../CIFAR10_playground.py}
 \end{document}

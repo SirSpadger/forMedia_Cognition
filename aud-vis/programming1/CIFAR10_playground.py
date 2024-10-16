@@ -21,48 +21,9 @@ train_transform = transforms.Compose([
     transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
     transforms.ToTensor()
 ])
-class CustomCIFAR10(torchvision.datasets.CIFAR10):
-    def __init__(
-        self,
-        root,
-        train,
-        transform = None,
-        target_transform = None,
-        download = False,
-    ):
-        super().__init__(root, train, transform, target_transform, download)
-        new_data = []
-        new_target = []
-        print(len(self.targets))
-        for i in tqdm(range(len(self.data))):
-            img, target = self.data[i], self.targets[i]
-            # print(self.data.shape)
-            # print(img.shape)
-            img = Image.fromarray(img)
 
-            if self.transform is not None:
-                img = self.transform(img)
-            
-            if self.target_transform is not None:
-                target = self.target_transform(target)
-            
-            # self.data[i], self.targets[i] = img, target
-
-            new_data.append(img)
-            new_target.append(target)
-        
-        self.data = torch.Tensor(np.stack(new_data, axis=0)).to(device)
-        self.targets = torch.Tensor(new_target).to(torch.int64).to(device)
-        # self.targets = new_target
-        print(len(self.targets))
-    
-    def __getitem__(self, index):
-        return self.data[index], self.targets[index]
-
-# train_dset = torchvision.datasets.CIFAR10(root='./CIFAR10',train=True,download=False,transform=train_transform)
-# test_dset = torchvision.datasets.CIFAR10(root='./CIFAR10',train=False,download=False,transform=transforms.ToTensor())
-train_dset = CustomCIFAR10(root='./CIFAR10',train=True,download=False,transform=train_transform)
-test_dset = CustomCIFAR10(root='./CIFAR10',train=False,download=False,transform=transforms.ToTensor())
+train_dset = torchvision.datasets.CIFAR10(root='./CIFAR10',train=True,download=False,transform=train_transform)
+test_dset = torchvision.datasets.CIFAR10(root='./CIFAR10',train=False,download=False,transform=transforms.ToTensor())
 train_loader = torch.utils.data.DataLoader(train_dset, batch_size=128, shuffle=True, num_workers=0)
 test_loader = torch.utils.data.DataLoader(test_dset, batch_size=128, shuffle=False, num_workers=0)
 #######################################################
@@ -244,7 +205,7 @@ class BnDeepNet(nn.Module):
 model = BnDeepNet('relu').to(device)
 criterion = nn.CrossEntropyLoss().to(device)
 
-optimizer_type = "SGD" #或者换成AdamW
+optimizer_type = "AdamW" #或者换成AdamW
 if optimizer_type == "SGD":
     optimizer = optim.SGD(model.parameters(), lr=0.001)
 elif optimizer_type == "AdamW":
@@ -266,7 +227,7 @@ for epoch in range(n_epochs):
     valid_loss = 0.0
     model.train()
     for idx,(img,label) in tqdm(enumerate(train_loader)):
-        # img, label = img.to(device), label.to(device)
+        img, label = img.to(device), label.to(device)
         optimizer.zero_grad()
         output = model(img)
         loss = criterion(output,label)
@@ -278,7 +239,7 @@ for epoch in range(n_epochs):
     correct = 0
     total = 0
     for idx,(img,label) in tqdm(enumerate(test_loader)):
-        # img, label = img.to(device), label.to(device)
+        img, label = img.to(device), label.to(device)
         output = model(img)
         loss = criterion(output, label)
         valid_loss += loss.item() * img.shape[0]
