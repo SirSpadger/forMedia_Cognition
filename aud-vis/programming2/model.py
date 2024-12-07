@@ -71,7 +71,17 @@ class FastRCNN(nn.Module):
         # hidden_dim -> hidden_dim.                                                  #
         ##############################################################################
         # Replace "pass" statement with your code
-        pass
+        # clc & bbox heads
+        self.linear1 = nn.Linear(in_dim, hidden_dim)
+        self.dropout = nn.Dropout(drop_ratio)
+        self.act = nn.ReLU()
+        self.linear2 = nn.Linear(hidden_dim, hidden_dim)
+
+        #cls head
+        self.cls_head = nn.Linear(hidden_dim, num_classes + 1)
+
+        # det head
+        self.det_head = nn.Linear(hidden_dim, 4)
         ##############################################################################
         #                               END OF YOUR CODE                             #
         ##############################################################################
@@ -118,20 +128,40 @@ class FastRCNN(nn.Module):
         B, _, H, W = images.shape
         
         # extract image feature
-        pass
+        feature_map = self.feat_extractor(images)
 
         # perform RoI Pool & mean pool
-        pass
+        roi_features = torchvision.ops.roi_pool(
+            feature_map, [proposals], (self.roi_output_w, self.roi_output_h)
+        )
+
+        roi_features = roi_features.mean(dim=(2, 3))
 
         # forward heads, get predicted cls scores & offsets
-        pass
+        roi_features = self.linear1(roi_features)
+        roi_features = self.dropout(roi_features)
+        roi_features = self.act(roi_features)
+        roi_features = self.linear2(roi_features)
+
+        bbox_result = self.det_head(roi_features)
+        cls_result = self.cls_head(roi_features)
+
 
         # assign targets with proposals
         pos_masks, neg_masks, GT_labels, GT_bboxes = [], [], [], []
         for img_idx in range(B):
             # get the positive/negative proposals and corresponding
             # GT box & class label of this image
-            pass
+            img_proposals = proposals[proposal_batch_ids == img_idx]
+            img_bboxes = bboxes[bbox_batch_ids == img_idx]
+            pos_mask, neg_mask, gt_labels, gt_bboxes = assign_label(
+                img_proposals, img_bboxes, self.num_classes
+            )
+            pos_masks.append(pos_mask)
+            neg_masks.append(neg_mask)
+            GT_labels.append(gt_labels)
+            GT_bboxes.append(gt_bboxes)
+
 
         # compute loss
         pass
