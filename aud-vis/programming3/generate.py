@@ -32,22 +32,23 @@ def generate(model, device, seed_words, input_length, output_length, vocab, temp
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         x = vocab.words_to_array(seed_words).to(device)
-        output_arr = torch.concat((output_arr, x), 0)
-        
+        output_arr = x
+
         for _ in range(output_length):
-            x = model.inference(x)
+            x = model.inference(output_arr[-input_length:])
+
             if strategy == 'greedy':
-                x = x.max().item()
+                x = x.argmax(dim=-1)
             elif strategy == 'sampling':
                 x = torch.multinomial(x.squeeze(), 1)
             else:
-                x = 'nan'
-            
+                raise ValueError("Strategy should be either 'sampling' or 'greedy'.")
+
             output_arr = torch.concat((output_arr, x), 0)
 
-            if x == vocab.words_to_array("#").to(device):
+            if x.item() == vocab.words_to_array("#").item():
                 break
-            
+
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################

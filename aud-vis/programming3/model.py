@@ -33,7 +33,6 @@ class PositionalEncoding(nn.Module):
         Arguments:
             x: Tensor, shape ``[batch_size, seq_len, embedding_dim]``
         """
-        # x = x + self.pe.unsqueeze(0)[:, :x.size(1)]
         x = x + self.pe[:, :x.size(1)]
         return x
 
@@ -77,12 +76,12 @@ class HarryPotterTransformer(nn.Module):
         x: Tensor, shape [batch_size, sequence_length]
         '''
 
-        # task 3
-        x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
-        x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
-        x = self.transformer_encoder(x) # size = (seq_len, batch_size, feature_size)
-        x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
-        x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
+        # # task 3
+        # x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
+        # x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
+        # x = self.transformer_encoder(x) # size = (seq_len, batch_size, feature_size)
+        # x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
+        # x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
 
         # # task 4
         # x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
@@ -92,15 +91,15 @@ class HarryPotterTransformer(nn.Module):
         # x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
         # x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
 
-        # # task 5
-        # attn_mask = torch.full((x.size(1), x.size(1)), float('-inf'))
-        # attn_mask = torch.triu(attn_mask, diagonal=1) # only keep the upper triangle
-        # x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
-        # x = self.pos_encoding(x)
-        # x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
-        # x = self.transformer_encoder(x, mask=attn_mask) # size = (seq_len, batch_size, feature_size)
-        # x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
-        # x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
+        # task 5
+        attn_mask = torch.full((x.size(1), x.size(1)), float('-inf'))
+        attn_mask = torch.triu(attn_mask, diagonal=1) # only keep the upper triangle
+        x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
+        x = self.pos_encoding(x)
+        x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
+        x = self.transformer_encoder(x, mask=attn_mask) # size = (seq_len, batch_size, feature_size)
+        x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
+        x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
 
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****

@@ -56,20 +56,58 @@
 
 \section{完成dataset}
 
-\section{无pos enc、无att mask的Transformer}
-训练结果：
+\section{无pos enc、无attn mask的Transformer}
+训练结果：\begin{figure}[H]
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/3-1.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/3-2.png}
+    \end{subfigure}
+    \hfill
+\end{figure}
 
 
-\section{有pos enc、无att mask的Transformer}
+\section{有pos enc、无attn mask的Transformer}
 训练结果：
+\begin{figure}[H]
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/4-1.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/4-2.png}
+    \end{subfigure}
+    \hfill
+\end{figure}
+
 
 分析positional encoding的作用：
 
+positional encoding通过给每一个词向量添加一部分与位置有关的信息，能够让词向量携带单词在序列中所处位置的信息，从而提高模型对序列的理解能力。
 
-\section{有pos enc、有att mask的Transformer}
+
+\section{有pos enc、有attn mask的Transformer}
 训练结果：
+\begin{figure}[H]
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/5-1.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\linewidth}
+        \includegraphics[width=\textwidth]{img/5-2.png}
+    \end{subfigure}
+    \hfill
+\end{figure}
+
 
 分析attention mask的作用：
+
+attention mask能够确定有效token的位置，即屏蔽掉词向量中不需要模型关注的部分（比如只看当前词语左侧序列，屏蔽右侧序列），从而提高模型的性能和准确性。
 
 \section{默认参数生成}
 
