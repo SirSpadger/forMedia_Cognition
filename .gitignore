@@ -6,3 +6,8 @@
 
 __pycache__/
 *.pth
+data/
+ckpts/
+
+exp/
+*.pkl
