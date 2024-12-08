@@ -64,8 +64,10 @@ NUM_HEADS = 8
 USE_CUDA = True
 
 MODEL_TYPE = 'transformer'
-DATA_PATH = 'data/'
-EXP_PATH = f'exp/'
+# DATA_PATH = 'data/'
+# EXP_PATH = f'exp/'
+DATA_PATH = '/content/drive/MyDrive/programming3/data/'
+EXP_PATH = f'/content/drive/MyDrive/programming3/exp/'
 
 if __name__=="__main__":
     use_cuda = USE_CUDA and torch.cuda.is_available()
@@ -90,6 +92,7 @@ if __name__=="__main__":
     temperature = 1.0
     # Experiment with different strategies.
     strategy = 'sampling'
+    #strategy = 'greedy'
 
     generated_sentence, array_length = generate(model, device, seed_words, SEQUENCE_LENGTH, 2000, vocab, temperature, strategy)
     print("Generated:\n", generated_sentence)

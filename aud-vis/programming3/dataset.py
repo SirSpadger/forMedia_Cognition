@@ -137,7 +137,8 @@ class HarryPotterDataset(torch.utils.data.Dataset):
 
 
 if __name__=='__main__':
-    DATA_PATH = 'data/'
+    # DATA_PATH = 'data/'
+    DATA_PATH = '/content/drive/MyDrive/programming3/data/'
     with open(DATA_PATH + 'harry_potter.txt', 'r', encoding = 'utf-8') as f:
         text = f.read()
     print('Some sample text from the book -->')

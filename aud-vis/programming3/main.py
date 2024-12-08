@@ -1,12 +1,12 @@
-import torch
-import torch.optim as optim
-import numpy as np
 import multiprocessing
 
+import numpy as np
+import torch
+import torch.optim as optim
 import util
 from dataset import HarryPotterDataset
-from model import HarryPotterTransformer
 from generate import generate
+from model import HarryPotterTransformer
 
 
 def repackage_hidden(h):
@@ -83,9 +83,10 @@ PRINT_INTERVAL = 10
 TEMPERATURE = 0.5
 
 MODEL_TYPE = 'transformer'
-DATA_PATH = 'data/'
-EXP_PATH = 'exp/'
-
+# DATA_PATH = 'data/'
+# EXP_PATH = 'exp/'
+DATA_PATH = '/content/drive/MyDrive/programming3/data/'
+EXP_PATH = '/content/drive/MyDrive/programming3/exp/'
 
 
 def main():
