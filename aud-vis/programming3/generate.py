@@ -1,7 +1,6 @@
 import torch
-
-from model import HarryPotterTransformer
 from dataset import Vocabulary
+from model import HarryPotterTransformer
 
 
 def generate(model, device, seed_words, input_length, output_length, vocab, temperature=1.0, strategy='sampling'):
@@ -32,7 +31,23 @@ def generate(model, device, seed_words, input_length, output_length, vocab, temp
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        x = vocab.words_to_array(seed_words).to(device)
+        output_arr = torch.concat((output_arr, x), 0)
+        
+        for _ in range(output_length):
+            x = model.inference(x)
+            if strategy == 'greedy':
+                x = x.max().item()
+            elif strategy == 'sampling':
+                x = torch.multinomial(x.squeeze(), 1)
+            else:
+                x = 'nan'
+            
+            output_arr = torch.concat((output_arr, x), 0)
+
+            if x == vocab.words_to_array("#").to(device):
+                break
+            
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################

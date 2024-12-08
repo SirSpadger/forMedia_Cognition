@@ -1,8 +1,8 @@
 import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 import util
 
 
@@ -15,7 +15,12 @@ class PositionalEncoding(nn.Module):
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len).unsqueeze(1).float()
+        denominator = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+        pe[:, 0::2] = torch.sin(position * denominator)
+        pe[:, 1::2] = torch.cos(position * denominator)
+        pe = pe.unsqueeze(0) # size = (batch_size, max_len, d_model (feature_size))
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################
@@ -28,7 +33,8 @@ class PositionalEncoding(nn.Module):
         Arguments:
             x: Tensor, shape ``[batch_size, seq_len, embedding_dim]``
         """
-        x = x + self.pe.unsqueeze(0)[:, :x.size(1)]
+        # x = x + self.pe.unsqueeze(0)[:, :x.size(1)]
+        x = x + self.pe[:, :x.size(1)]
         return x
 
 
@@ -50,7 +56,11 @@ class HarryPotterTransformer(nn.Module):
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        self.embedding = nn.Embedding(vocab_size, feature_size)
+        self.transformer_encoder = nn.TransformerEncoder(nn.TransformerEncoderLayer(d_model=feature_size, nhead=num_heads, dim_feedforward=4 * feature_size, dropout=0.1), num_layers=2)
+        self.decoder = nn.Linear(feature_size, vocab_size)
+
+        self.pos_encoding = PositionalEncoding(feature_size)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################
@@ -63,8 +73,35 @@ class HarryPotterTransformer(nn.Module):
         # TODO: finish the forward pass                                                #
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        '''
+        x: Tensor, shape [batch_size, sequence_length]
+        '''
 
-        pass
+        # task 3
+        x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
+        x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
+        x = self.transformer_encoder(x) # size = (seq_len, batch_size, feature_size)
+        x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
+        x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
+
+        # # task 4
+        # x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
+        # x = self.pos_encoding(x)
+        # x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
+        # x = self.transformer_encoder(x) # size = (seq_len, batch_size, feature_size)
+        # x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
+        # x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
+
+        # # task 5
+        # attn_mask = torch.full((x.size(1), x.size(1)), float('-inf'))
+        # attn_mask = torch.triu(attn_mask, diagonal=1) # only keep the upper triangle
+        # x = self.embedding(x) # size = (batch_size, seq_len, feature_size)
+        # x = self.pos_encoding(x)
+        # x = x.permute(1, 0, 2) # size = (seq_len, batch_size, feature_size)
+        # x = self.transformer_encoder(x, mask=attn_mask) # size = (seq_len, batch_size, feature_size)
+        # x = x.permute(1, 0, 2) # size = (batch_size, seq_len, feature_size)
+        # x = self.decoder(x) # size = (batch_size, seq_len, feature_size)
+
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################

@@ -1,4 +1,5 @@
 import pickle
+
 import torch
 from torchvision import datasets
 
@@ -14,8 +15,8 @@ def prepare_data(data_path):
     ################################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
-    
+    data = " ".join(" ".join(" ".join(data.replace("\n\n", "#").split("\n")).split("\t")).split("\x1f"))
+
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ################################################################################
     #                              END OF YOUR CODE                                #
@@ -27,6 +28,7 @@ def prepare_data(data_path):
     for idx, char in enumerate(unique_chars):
         voc2ind[char] = idx
     ind2voc = {val: key for key, val in voc2ind.items()}
+    # print(ind2voc)
 
     # split into train & test datasets
     train_text = data[:int(0.8*len(data))]
@@ -88,7 +90,8 @@ class HarryPotterDataset(torch.utils.data.Dataset):
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        self.data = torch.LongTensor(self.tokens[:(len(self.tokens) // self.batch_size * self.batch_size)]).reshape(self.batch_size, -1)
+        self.sequences_in_batch = self.data.size(1) // self.sequence_length
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################
@@ -101,7 +104,7 @@ class HarryPotterDataset(torch.utils.data.Dataset):
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         
-        return 0
+        return self.batch_size * self.sequences_in_batch
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################
@@ -117,7 +120,9 @@ class HarryPotterDataset(torch.utils.data.Dataset):
         ################################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        chunk_idx = idx // self.sequences_in_batch
+        sequence_idx = idx % self.sequences_in_batch
+        data = self.data[chunk_idx, (sequence_idx * self.sequence_length):((sequence_idx + 1) * self.sequence_length + 1)]
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ################################################################################

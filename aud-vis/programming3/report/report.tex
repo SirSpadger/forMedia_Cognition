@@ -1,0 +1,79 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[UTF8, heading=true]{ctex}
+\usepackage[dvipsnames, x11names]{xcolor}
+\usepackage{geometry}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\newfontfamily\codefont{Cascadia Code}
+\definecolor{codebackground}{RGB}{230 235 245}
+
+\lstset{
+    basicstyle          =   \small\codefont,
+    % ---
+    tabsize             =   4,
+    showstringspaces    =   false,
+    numbers             =   left,
+    numberstyle         =   \codefont,
+    % ---
+    breaklines          =   true,
+    captionpos          =   t,      
+    % ---
+    frame               =   l,
+    flexiblecolumns,
+}
+
+\lstdefinestyle{python}{
+    language        =   Python, % 语言选Python
+    keywordstyle    =   \bfseries\color{blue},
+    % keywordstyle    =   [2] \color{teal},
+    stringstyle     =   \color{orange!80!black},
+    commentstyle    =   \color{OliveGreen},
+    % identifierstyle =   \color{blue!80!white},
+    backgroundcolor =   \color{codebackground}
+}
+\lstMakeShortInline|
+
+\geometry{a4paper, scale=0.8}
+
+\ctexset{
+    section = {
+        name = {Task },
+        format = {\Large\bfseries}
+    }
+}
+
+\title{\Large{\bf{视听信息系统导论编程3}}}
+\author{高艺轩\ 毕嘉仪}
+\date{}
+
+\begin{document}
+\maketitle
+\section{数据准备}
+函数|prepare_data|首先将全部文本读入，根据要求进行数据预处理，然后给每一个单独的字符都赋予一个index并将其存储为字典类型，得到对应词表。
+
+\section{完成dataset}
+
+\section{无pos enc、无att mask的Transformer}
+训练结果：
+
+
+\section{有pos enc、无att mask的Transformer}
+训练结果：
+
+分析positional encoding的作用：
+
+
+\section{有pos enc、有att mask的Transformer}
+训练结果：
+
+分析attention mask的作用：
+
+\section{默认参数生成}
+
+\section{不同temperature和不同strategy下生成内容的不同}
+
+\section*{程序源代码}
+\end{document}
